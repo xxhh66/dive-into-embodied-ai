@@ -34,3 +34,22 @@ PULL_LFS=1 npm run dev   # 想顺带刷新 LFS 文件再用这个
 - **大文件走 LFS**。GIF、视频、PSD、ZIP 等不要把真实二进制提交进 Git 历史。
 - **招聘岗位数据不要提交进仓库**。后续由外部服务、定时任务或 artifact 发布。
 - **提交前至少跑** `npm run assets:webp:check` 和 `npm run build`。
+
+## 本机 SSH 配置（可选）
+
+`git push` 会先触发 `.husky/pre-push` → `git lfs pre-push`，过程中会开多次 SSH 连接。如果没把 key 挂进 ssh-agent，每次都会问 passphrase。macOS 一次性解决：
+
+```bash
+ssh-add --apple-use-keychain ~/.ssh/id_rsa
+```
+
+并在 `~/.ssh/config` 里给 `Host github.com` 加上：
+
+```
+Host github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_rsa
+```
+
+之后 push 就不会反复问 passphrase 了，重启后也会自动从 Keychain 恢复。
