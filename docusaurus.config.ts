@@ -64,28 +64,24 @@ const config: Config = {
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'overviewSidebar',
+          type: 'custom-navbarMegaMenu',
+          menuId: 'overview',
           position: 'left',
-          label: '总览',
         },
         {
-          type: 'docSidebar',
-          sidebarId: 'foundationsSidebar',
+          type: 'custom-navbarMegaMenu',
+          menuId: 'foundations',
           position: 'left',
-          label: '基础篇',
         },
         {
-          type: 'docSidebar',
-          sidebarId: 'practicesSidebar',
+          type: 'custom-navbarMegaMenu',
+          menuId: 'practices',
           position: 'left',
-          label: '实践篇',
         },
         {
-          type: 'docSidebar',
-          sidebarId: 'careerSidebar',
+          type: 'custom-navbarMegaMenu',
+          menuId: 'career',
           position: 'left',
-          label: '求职篇',
         },
         {
           href: 'https://github.com/datawhalechina/dive-into-embodied-ai',
