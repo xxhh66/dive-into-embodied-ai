@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+# husky 接管了 core.hooksPath，git lfs install 默认放进 .git/hooks/pre-push
+# 的钩子被绕过，导致 `git push` 不会自动推 LFS 对象。这里手动转发到 git-lfs。
+command -v git-lfs >/dev/null 2>&1 || {
+  echo >&2 "ERROR: git-lfs not found in PATH. Install via 'brew install git-lfs' (macOS)."
+  exit 2
+}
+git lfs pre-push "$@"
