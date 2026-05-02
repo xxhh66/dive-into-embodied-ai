@@ -1,47 +1,60 @@
-<h1 align="center"> 项目名称（⚠️ Alpha内测版 / 🧪 Beta公测版） </h1>
+<h1 align="center"> Dive into Embodied AI（⚠️ Alpha 内测版） </h1>
 
 > [!CAUTION]
-> ⚠️ Alpha内测版本警告：此为早期内部构建版本，尚不完整且可能存在错误，欢迎大家提Issue反馈问题或建议。
+> ⚠️ Alpha 内测版本：仍在迁移和重构中，部分章节是占位页，欢迎提 Issue 反馈问题或建议。
 
-或者
-
-> [!WARNING]
-> 🧪 Beta公测版本提示：教程主体已完成，正在优化细节，欢迎大家提Issue反馈问题或建议。
-
-*这里写项目的各类介绍信息、背景、动机等内容*
+面向求职与转行的具身智能开源教程，按「总览 + 基础篇 + 实践篇 + 求职篇」三篇制组织：先建立认知，再做项目，最后整理到简历和面试。
 
 ## 项目受众
 
-*注：这里写你的项目所面向的受众，本项目能给他们带来什么，对他们的基础能力要求有哪些*
+- 想入门具身智能的应届生与在校生
+- 从 ML / CV / NLP / 自动驾驶 / 传统机器人方向转入具身的工程师
+- 想跳槽到更头部具身公司、需要补齐项目和面试准备的人
 
 ## 在线阅读
-https://datawhalechina.github.io/repo-template
+
+https://datawhalechina.github.io/dive-into-embodied-ai/
 
 ## 目录
-*这里写你的项目目录，及其完成状态，已完成的部分添加上跳转链接*
 
-|  章节名   | 简介 | 状态 |
-|  ----  | ---- | ---- |
-| [第1章 xxx](https://github.com/datawhalechina/repo-template/blob/main/docs/chapter1)  | xxx | ✅ |
-| [第2章 xxx](https://github.com/datawhalechina/repo-template/blob/main/docs/chapter2)  | xxx | ✅ |
-| [第3章 xxx](https://github.com/datawhalechina/repo-template/blob/main/docs/chapter3)  | xxx | ✅ |
-| 第4章  | xxx | 🚧 |
+| 章节 | 简介 | 状态 |
+|------|------|------|
+| [总览](docs/overview/intro.md) | 项目介绍、学习路径、公司图谱 | 🚧 部分施工中 |
+| [基础篇](docs/foundations/intro.md) | 机器人学、ROS2、仿真、强化学习、VLM/VLA 等基础模块 | 🚧 部分施工中 |
+| [实践篇](docs/practices/intro.md) | 机械臂、四足、人形、移动操作四类项目 | 🚧 部分施工中 |
+| [求职篇](docs/career/intro.md) | 岗位拆解、面经、简历、公司技术栈、招聘信息、转岗路径、社区与内推 | 🚧 部分施工中 |
 
 ## 贡献者名单
 
 | 姓名 | 职责 | 简介 |
-| :----| :---- | :---- |
-| 小明 | 项目负责人 | 一个理想主义者 |
-| 小红 | 第1章贡献者 | 小明的朋友 |
-| 小强 | 第2章贡献者 | 小明的朋友 |
+| :--- | :--- | :--- |
+| 施工中 | 项目负责人 | 施工中 |
 
-*注：表头可自定义，但必须在名单中标明项目负责人*
+## 本地预览
+
+仓库使用 Git LFS 存放视频和 GIF。clone 之后必须先装 `git-lfs` 再 `git lfs pull`，否则本地看到的图/视频是 pointer 文本，不是真内容。完整步骤见 [CONTRIBUTING.md](CONTRIBUTING.md#首次克隆必读)。
+
+```bash
+# 1. 装 git-lfs（每台机器只需一次）
+# brew install git-lfs        # macOS
+# sudo apt install git-lfs  # Ubuntu / Debian
+# choco install git-lfs     # Windows
+
+# 2. 初始化并拉取 LFS 文件
+git lfs install
+git lfs pull
+
+# 3. 装依赖、起本地预览
+npm install
+npm run dev
+```
 
 ## 参与贡献
 
-- 如果你发现了一些问题，可以提Issue进行反馈，如果提完没有人回复你可以联系[保姆团队](https://github.com/datawhalechina/DOPMC/blob/main/OP.md)的同学进行反馈跟进~
-- 如果你想参与贡献本项目，可以提Pull Request，如果提完没有人回复你可以联系[保姆团队](https://github.com/datawhalechina/DOPMC/blob/main/OP.md)的同学进行反馈跟进~
-- 如果你对 Datawhale 很感兴趣并想要发起一个新的项目，请按照[Datawhale开源项目指南](https://github.com/datawhalechina/DOPMC/blob/main/GUIDE.md)进行操作即可~
+- 贡献规则（LFS、图片格式、招聘数据、必跑命令）见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+- 发现问题请提 Issue，长期没人回复可联系 [Datawhale 保姆团队](https://github.com/datawhalechina/DOPMC/blob/main/OP.md)。
+- 想参与贡献请提 Pull Request，长期没人回复同上。
+- 想发起新的 Datawhale 项目，请参考 [Datawhale 开源项目指南](https://github.com/datawhalechina/DOPMC/blob/main/GUIDE.md)。
 
 ## 关注我们
 
@@ -53,5 +66,3 @@ https://datawhalechina.github.io/repo-template
 ## LICENSE
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。
-
-*注：默认使用CC 4.0协议，也可根据自身项目情况选用其他协议*
