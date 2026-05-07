@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">CS123 四足机器人项目技能图谱</title>
+  <desc id="desc">围绕从零到一搭建 AI 四足机器人的技能点链接图谱，展示学完本项目后掌握的核心能力。</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7fafc; }
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-weight: 800; fill: #12233f; letter-spacing: 0; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-weight: 500; fill: #52627a; letter-spacing: 0; }
+      .node-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-weight: 760; fill: #13233a; letter-spacing: 0; }
+      .node-small { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-weight: 560; fill: #40516a; letter-spacing: 0; }
+      .center-main { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-weight: 860; fill: white; letter-spacing: 0; }
+      .center-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-weight: 600; fill: #e7f0ff; letter-spacing: 0; }
+      .edge { fill: none; stroke: #9fb0c7; stroke-width: 3; stroke-linecap: round; opacity: .72; }
+      .edge-strong { fill: none; stroke: #335fca; stroke-width: 5; stroke-linecap: round; opacity: .82; }
+      .pill { stroke: rgba(18,35,63,.12); stroke-width: 1.5; }
+      .tag-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 22px; font-weight: 700; fill: white; letter-spacing: 0; }
+      .legend { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 22px; font-weight: 620; fill: #2a3c55; letter-spacing: 0; }
+    </style>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#12233f" flood-opacity=".12"/>
+    </filter>
+    <linearGradient id="center" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#1f73ff"/>
+      <stop offset="1" stop-color="#16a36a"/>
+    </linearGradient>
+    <linearGradient id="control" x1="0" x2="1">
+      <stop offset="0" stop-color="#eff6ff"/>
+      <stop offset="1" stop-color="#dbeafe"/>
+    </linearGradient>
+    <linearGradient id="kin" x1="0" x2="1">
+      <stop offset="0" stop-color="#f0fdf4"/>
+      <stop offset="1" stop-color="#dcfce7"/>
+    </linearGradient>
+    <linearGradient id="sim" x1="0" x2="1">
+      <stop offset="0" stop-color="#fff7ed"/>
+      <stop offset="1" stop-color="#ffedd5"/>
+    </linearGradient>
+    <linearGradient id="rl" x1="0" x2="1">
+      <stop offset="0" stop-color="#faf5ff"/>
+      <stop offset="1" stop-color="#ede9fe"/>
+    </linearGradient>
+    <linearGradient id="ai" x1="0" x2="1">
+      <stop offset="0" stop-color="#ecfeff"/>
+      <stop offset="1" stop-color="#cffafe"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7f93ad"/>
+    </marker>
+    <marker id="arrowStrong" markerWidth="14" markerHeight="14" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#335fca"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1600" height="1000"/>
+  <text class="title" x="800" y="82" text-anchor="middle" font-size="52">从零到一搭建 AI 四足机器人：技能点链接图谱</text>
+  <text class="subtitle" x="800" y="126" text-anchor="middle" font-size="25">基于 CS123 中文仿真版：MuJoCo 统一仿真栈 + Pupper-like 四足主线 + 语言/视觉驱动 demo</text>
+
+  <path class="edge-strong" marker-end="url(#arrowStrong)" d="M308 288 C422 240, 518 248, 627 355"/>
+  <path class="edge-strong" marker-end="url(#arrowStrong)" d="M394 570 C490 548, 555 514, 635 501"/>
+  <path class="edge-strong" marker-end="url(#arrowStrong)" d="M670 215 C707 266, 731 300, 760 338"/>
+  <path class="edge-strong" marker-end="url(#arrowStrong)" d="M973 242 C924 282, 877 320, 839 356"/>
+  <path class="edge-strong" marker-end="url(#arrowStrong)" d="M1070 584 C990 558, 937 532, 864 505"/>
+  <path class="edge-strong" marker-end="url(#arrowStrong)" d="M1160 297 C1055 280, 953 306, 858 378"/>
+  <path class="edge-strong" marker-end="url(#arrowStrong)" d="M812 706 C810 648, 808 603, 806 546"/>
+  <path class="edge" marker-end="url(#arrow)" d="M312 352 C407 430, 450 515, 520 620"/>
+  <path class="edge" marker-end="url(#arrow)" d="M507 628 C522 548, 563 493, 634 469"/>
+  <path class="edge" marker-end="url(#arrow)" d="M1048 657 C984 624, 914 577, 848 520"/>
+  <path class="edge" marker-end="url(#arrow)" d="M1117 688 C1079 742, 1017 785, 925 812"/>
+  <path class="edge" marker-end="url(#arrow)" d="M592 806 C680 776, 739 714, 779 546"/>
+
+  <g filter="url(#shadow)">
+    <rect x="580" y="338" width="440" height="210" rx="28" fill="url(#center)"/>
+    <text class="center-main" x="800" y="415" text-anchor="middle" font-size="46">完整机器人系统能力</text>
+    <text class="center-main" x="800" y="470" text-anchor="middle" font-size="42">AI 四足仿真 Demo</text>
+    <text class="center-sub" x="800" y="515" text-anchor="middle" font-size="25">建模 · 控制 · 学习 · 感知 · 语言驱动</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="88" y="196" width="320" height="190" rx="16" fill="url(#control)" class="pill"/>
+    <text class="node-title" x="248" y="243" text-anchor="middle" font-size="31">执行器与 PID / PD</text>
+    <text class="node-small" x="128" y="288" font-size="22">• 电机 / 减速器 / 反射惯量</text>
+    <text class="node-small" x="128" y="324" font-size="22">• 开环 vs 闭环反馈控制</text>
+    <text class="node-small" x="128" y="360" font-size="22">• Kp / Kd 调参、过冲与阻尼</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="446" y="164" width="336" height="178" rx="16" fill="url(#kin)" class="pill"/>
+    <text class="node-title" x="614" y="210" text-anchor="middle" font-size="31">正运动学 FK</text>
+    <text class="node-small" x="486" y="254" font-size="22">• 位姿、坐标系、齐次变换</text>
+    <text class="node-small" x="486" y="290" font-size="22">• DH / MJCF 父子链</text>
+    <text class="node-small" x="486" y="326" font-size="22">• 工作空间与雅可比矩阵</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="860" y="162" width="358" height="180" rx="16" fill="url(#kin)" class="pill"/>
+    <text class="node-title" x="1039" y="208" text-anchor="middle" font-size="31">逆运动学 IK</text>
+    <text class="node-small" x="900" y="252" font-size="22">• 解析解 vs 数值解</text>
+    <text class="node-small" x="900" y="288" font-size="22">• 阻尼最小二乘 DLS</text>
+    <text class="node-small" x="900" y="324" font-size="22">• 多解、奇异、不可达处理</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1194" y="226" width="312" height="204" rx="16" fill="url(#sim)" class="pill"/>
+    <text class="node-title" x="1350" y="272" text-anchor="middle" font-size="31">MuJoCo / MJCF 建模</text>
+    <text class="node-small" x="1230" y="318" font-size="22">• body / joint / geom / actuator</text>
+    <text class="node-small" x="1230" y="354" font-size="22">• freejoint、armature、接触参数</text>
+    <text class="node-small" x="1230" y="390" font-size="22">• 四足模型站立稳定性验证</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="134" y="520" width="326" height="196" rx="16" fill="url(#control)" class="pill"/>
+    <text class="node-title" x="297" y="566" text-anchor="middle" font-size="31">模型驱动步态</text>
+    <text class="node-small" x="174" y="612" font-size="22">• walk / trot / bound / gallop</text>
+    <text class="node-small" x="174" y="648" font-size="22">• 足端轨迹与相位节奏图</text>
+    <text class="node-small" x="174" y="684" font-size="22">• IK → 关节角 → PD 控制</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1040" y="510" width="386" height="220" rx="16" fill="url(#rl)" class="pill"/>
+    <text class="node-title" x="1233" y="556" text-anchor="middle" font-size="31">强化学习步态训练</text>
+    <text class="node-small" x="1080" y="602" font-size="22">• Gymnasium 环境封装</text>
+    <text class="node-small" x="1080" y="638" font-size="22">• PD 残差动作空间</text>
+    <text class="node-small" x="1080" y="674" font-size="22">• PPO、奖励工程、域随机化</text>
+    <text class="node-small" x="1080" y="710" font-size="22">• reward 曲线与策略评估</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="636" y="705" width="364" height="206" rx="16" fill="url(#ai)" class="pill"/>
+    <text class="node-title" x="818" y="751" text-anchor="middle" font-size="31">LLM / Agent 控制</text>
+    <text class="node-small" x="676" y="797" font-size="22">• 语言指令 → 工具 API</text>
+    <text class="node-small" x="676" y="833" font-size="22">• Function calling / ReAct</text>
+    <text class="node-small" x="676" y="869" font-size="22">• 多步任务规划与失败恢复</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1060" y="760" width="350" height="160" rx="16" fill="url(#ai)" class="pill"/>
+    <text class="node-title" x="1235" y="806" text-anchor="middle" font-size="31">机器人视觉 / VLM</text>
+    <text class="node-small" x="1100" y="852" font-size="22">• 仿真相机与图像采集</text>
+    <text class="node-small" x="1100" y="888" font-size="22">• HSV / YOLO 检测、追球状态机</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="200" y="760" width="358" height="160" rx="16" fill="#ffffff" class="pill"/>
+    <text class="node-title" x="379" y="806" text-anchor="middle" font-size="31">工程产出闭环</text>
+    <text class="node-small" x="240" y="852" font-size="22">• 可视化曲线 / 录屏 / 实验小结</text>
+    <text class="node-small" x="240" y="888" font-size="22">• 参数对比、失败模式定位</text>
+  </g>
+
+  <g>
+    <rect x="118" y="902" width="1364" height="62" rx="16" fill="#ffffff" stroke="#d9e2ef" stroke-width="2" filter="url(#shadow)"/>
+    <circle cx="170" cy="933" r="14" fill="#2563eb"/>
+    <text class="legend" x="198" y="941">蓝：执行器 / 控制</text>
+    <circle cx="430" cy="933" r="14" fill="#16a34a"/>
+    <text class="legend" x="458" y="941">绿：运动学 / 机器人本体</text>
+    <circle cx="758" cy="933" r="14" fill="#f97316"/>
+    <text class="legend" x="786" y="941">橙：仿真建模 / Sim2Real</text>
+    <circle cx="1086" cy="933" r="14" fill="#7c3aed"/>
+    <text class="legend" x="1114" y="941">紫：强化学习</text>
+    <circle cx="1306" cy="933" r="14" fill="#0891b2"/>
+    <text class="legend" x="1334" y="941">青：LLM / 视觉 Agent</text>
+  </g>
+
+  <g>
+    <rect x="601" y="585" width="398" height="54" rx="27" fill="#12233f" opacity=".92"/>
+    <text class="tag-text" x="800" y="621" text-anchor="middle">学完后：能把单个算法拼成可运行机器人系统</text>
+  </g>
+</svg>
