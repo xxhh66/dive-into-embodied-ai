@@ -1,6 +1,7 @@
 ---
 title: LeRobot 中文课程讲义
 description: 基于 Hugging Face Robotics Course 当前已发布内容整理的中文学习讲义。
+displayed_sidebar: practicesLerobotCourseSidebar
 ---
 
 import Figure from '@site/src/components/Figure';

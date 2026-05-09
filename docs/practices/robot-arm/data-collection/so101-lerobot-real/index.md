@@ -1,6 +1,7 @@
 ---
 sidebar_position: 6
 title: SO-101 + LeRobot 真机教程
+displayed_sidebar: practicesSo101CourseSidebar
 ---
 
 # SO-101 + LeRobot 真机教程

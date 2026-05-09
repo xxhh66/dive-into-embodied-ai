@@ -192,30 +192,46 @@ export const megaMenus: MegaMenuConfig[] = [
     panelWidth: 940,
     columns: [
       {
-        title: '机械臂方向',
+        title: '课程入口',
         items: [
           {
-            icon: '🦾',
-            title: '机械臂方向',
-            description: '从 MuJoCo pick-and-place 到 VLA 控制。',
-            to: '/docs/practices/robot-arm/placeholder',
-            activeBasePath: '/docs/practices/robot-arm',
-            keywords: ['MuJoCo', 'VLA', '模仿学习'],
+            icon: '🐕',
+            title: '从零到一搭建机器人',
+            description: 'CS123 四足仿真课程，8 章从 PD 走到 LLM 控制。',
+            to: '/docs/practices/quadruped/cs123/intro',
+            activeBasePath: '/docs/practices/quadruped/cs123',
+            keywords: ['CS123', '四足', 'Pupper'],
+            featured: true,
+          },
+          {
+            icon: '🤗',
+            title: 'LeRobot 中文课程讲义',
+            description: '基于 Hugging Face Robotics Course 整理的中文主线。',
+            to: '/docs/practices/robot-arm/data-collection/lerobot-course',
+            activeBasePath: '/docs/practices/robot-arm/data-collection/lerobot-course',
+            keywords: ['LeRobot', '课程', '机器人学习'],
             featured: true,
           },
         ],
       },
       {
-        title: '足式机器人',
+        title: '方向总览',
         items: [
           {
+            icon: '🦾',
+            title: '机械臂方向',
+            description: '抓取、数据采集、VLA 控制与真机部署入口。',
+            to: '/docs/practices/robot-arm/placeholder',
+            activeBasePath: '/docs/practices/robot-arm/placeholder',
+            keywords: ['MuJoCo', 'VLA', '模仿学习'],
+          },
+          {
             icon: '🐕',
-            title: '四足机器人 · CS123',
-            description: '8 章从 PD 走到 LLM 驱动四足。',
-            to: '/docs/practices/quadruped/cs123/intro',
-            activeBasePath: '/docs/practices/quadruped',
-            keywords: ['CS123', '四足', 'Pupper'],
-            featured: true,
+            title: '四足机器人方向',
+            description: '四足课程、sim2sim 与 sim2real 实践入口。',
+            to: '/docs/practices/quadruped/placeholder',
+            activeBasePath: '/docs/practices/quadruped/placeholder',
+            keywords: ['CS123', '四足', 'sim2real'],
           },
           {
             icon: '🚶',
@@ -228,8 +244,17 @@ export const megaMenus: MegaMenuConfig[] = [
         ],
       },
       {
-        title: '移动操作',
+        title: '部署与综合',
         items: [
+          {
+            icon: '🦾',
+            title: 'SO-101 + LeRobot 真机教程',
+            description: '从硬件连接到策略回放的最小真机流程。',
+            to: '/docs/practices/robot-arm/data-collection/so101-lerobot-real',
+            activeBasePath: '/docs/practices/robot-arm/data-collection/so101-lerobot-real',
+            keywords: ['SO-101', 'LeRobot', '真机'],
+            featured: true,
+          },
           {
             icon: '📦',
             title: '移动操作',
