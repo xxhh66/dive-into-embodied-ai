@@ -1,7 +1,14 @@
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import remarkMath from 'remark-math';
-import rehypeMathjax from 'rehype-mathjax';
+import rehypeMathjax from './src/rehype-mathjax-twopass.mjs';
+
+const mathjaxConfig = {
+  tex: {
+    tags: 'ams',
+    tagSide: 'right',
+  },
+};
 
 const config: Config = {
   title: 'Dive into Embodied AI',
@@ -38,7 +45,7 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           remarkPlugins: [remarkMath],
-          rehypePlugins: [rehypeMathjax],
+          rehypePlugins: [[rehypeMathjax, mathjaxConfig]],
           showLastUpdateTime: true,
           showLastUpdateAuthor: true,
         },
