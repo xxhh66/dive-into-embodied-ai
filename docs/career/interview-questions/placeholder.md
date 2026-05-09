@@ -5,7 +5,7 @@ sidebar_position: 1
 
 # 面经与八股
 
-:::info 占位页面
+:::info[占位页面]
 本章节内容将从源 repo 迁移或新建。
 :::
 
