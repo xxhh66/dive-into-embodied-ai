@@ -5,16 +5,22 @@ const path = require('node:path');
 const rootDir = path.resolve(__dirname, '..');
 const cs123Dir = path.join(rootDir, 'docs/practices/quadruped/cs123');
 const cs123FigsDir = path.join(cs123Dir, 'figs');
+const cs123PidDocPath = path.join(cs123Dir, '1.pid-control.mdx');
 const requiredCs123Assets = [
   'actuator-workflow.webp',
   'bang-bang-control.webp',
   'bang-bang-limit-cycle.webp',
   'closed-loop-control.webp',
   'coordinate-frames.webp',
+  'integral-windup.webp',
   'open-loop-control.webp',
+  'pd-spring-damper.webp',
+  'pid-three-terms.webp',
 ];
 
 const customCssPath = path.join(rootDir, 'src/css/custom.css');
+const figureComponentPath = path.join(rootDir, 'src/components/Figure/index.tsx');
+const docTableComponentPath = path.join(rootDir, 'src/components/DocTable/index.tsx');
 
 function listFiles(dir, predicate = () => true) {
   return fs.readdirSync(dir, {withFileTypes: true}).flatMap((entry) => {
@@ -97,6 +103,9 @@ for (const assetName of requiredCs123Assets) {
 }
 
 const customCss = fs.readFileSync(customCssPath, 'utf8');
+const cs123PidDoc = fs.readFileSync(cs123PidDocPath, 'utf8');
+const figureComponent = fs.readFileSync(figureComponentPath, 'utf8');
+const docTableComponent = fs.readFileSync(docTableComponentPath, 'utf8');
 assert.match(
   customCss,
   /\.doc-figure\s*{[^}]*text-align:\s*center;[^}]*margin:\s*1\.75rem auto;[^}]*}/s,
@@ -106,6 +115,56 @@ assert.match(
   customCss,
   /\.doc-figure img,\s*\.doc-figure svg\s*{[^}]*display:\s*block;[^}]*margin:\s*0 auto;[^}]*}/s,
   'Figure images and SVGs should be block-centered',
+);
+assert.match(
+  customCss,
+  /\.markdown\s+table\s*{[^}]*display:\s*block\s*!important;[^}]*width:\s*max-content;[^}]*max-width:\s*100%;[^}]*margin:\s*1\.5em auto\s*!important;[^}]*overflow-x:\s*auto;[^}]*}/s,
+  'Markdown tables should shrink to content width and center when they fit',
+);
+assert.match(
+  customCss,
+  /@media\s+print\s*{[\s\S]*?\.markdown\s+table\s*{[^}]*display:\s*table\s*!important;[^}]*width:\s*100%;[^}]*max-width:\s*100%;[^}]*overflow:\s*visible\s*!important;[^}]*margin:\s*1rem 0\s*!important;[^}]*}/s,
+  'Print tables should keep full-width table layout',
+);
+assert.match(
+  customCss,
+  /\.markdown\s*{[^}]*counter-reset:\s*figure table;[^}]*}/s,
+  'Markdown counters should include figures and tables',
+);
+assert.match(
+  customCss,
+  /\.doc-table\s*{[^}]*counter-increment:\s*table;[^}]*}/s,
+  'Document table wrappers should increment the table counter',
+);
+assert.match(
+  customCss,
+  /\.doc-table figcaption::before\s*{[^}]*content:\s*"表 " counter\(table\) ": ";[^}]*}/s,
+  'Document table captions should be automatically numbered',
+);
+assert.match(
+  cs123PidDoc,
+  /import DocTable from '@site\/src\/components\/DocTable';[\s\S]*按能量来源，常见执行器可以分成三大类，如\[表 1\]\(#tab-actuator-types\) 所示：[\s\S]*<DocTable id="tab-actuator-types" caption="常见执行器按能量来源的三大类">[\s\S]*<\/DocTable>/,
+  'CS123 PID actuator table should use an anchored numbered table wrapper',
+);
+assert.match(
+  figureComponent,
+  /id\?:\s*string;/,
+  'Figure component should accept optional id anchors',
+);
+assert.match(
+  figureComponent,
+  /<figure className="doc-figure" id={id}>/,
+  'Figure component should render optional id anchors',
+);
+assert.match(
+  figureComponent,
+  /useBrokenLinks\(\)\.collectAnchor\(id\);/,
+  'Figure component should register optional id anchors for Docusaurus broken-anchor checks',
+);
+assert.match(
+  docTableComponent,
+  /useBrokenLinks\(\)\.collectAnchor\(id\);/,
+  'DocTable component should register table anchors for Docusaurus broken-anchor checks',
 );
 
 for (const assetPath of listFiles(cs123FigsDir, (filePath) => /\.(gif|png|svg|webp)$/i.test(filePath))) {

@@ -1,4 +1,5 @@
 import React from 'react';
+import useBrokenLinks from '@docusaurus/useBrokenLinks';
 
 type SvgComponent = React.ComponentType<React.SVGProps<SVGSVGElement>>;
 
@@ -7,9 +8,12 @@ interface FigureProps {
   caption: string;
   width?: number | string;
   alt?: string;
+  id?: string;
 }
 
-export default function Figure({src, caption, width = 560, alt}: FigureProps) {
+export default function Figure({src, caption, width = 560, alt, id}: FigureProps) {
+  useBrokenLinks().collectAnchor(id);
+
   const imageStyle =
     typeof width === 'number'
       ? {width: '100%', maxWidth: `${width}px`}
@@ -19,7 +23,7 @@ export default function Figure({src, caption, width = 560, alt}: FigureProps) {
   const isSvgComponent = typeof src === 'function';
 
   return (
-    <figure className="doc-figure">
+    <figure className="doc-figure" id={id}>
       {isSvgComponent ? (
         React.createElement(src, {
           role: 'img',

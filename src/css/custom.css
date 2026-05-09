@@ -679,7 +679,7 @@ body {
 }
 
 .theme-doc-markdown.markdown table {
-  overflow: hidden;
+  overflow-y: hidden;
   border-radius: 8px;
   box-shadow: 0 0 0 1px var(--site-border);
 }
@@ -692,6 +692,15 @@ body {
 .theme-doc-markdown.markdown td,
 .theme-doc-markdown.markdown th {
   border-color: var(--site-border);
+}
+
+/* Center tables when they fit, while preserving mobile horizontal scroll */
+.markdown table {
+  display: block !important;
+  width: max-content;
+  max-width: 100%;
+  margin: 1.5em auto !important;
+  overflow-x: auto;
 }
 
 .theme-code-block,
@@ -816,9 +825,9 @@ body {
   }
 }
 
-/* Auto-numbered figures */
+/* Auto-numbered figures and tables */
 .markdown {
-  counter-reset: figure;
+  counter-reset: figure table;
 }
 
 .doc-figure {
@@ -847,6 +856,27 @@ body {
   content: "图 " counter(figure) ": ";
 }
 
+.doc-table {
+  margin: 1.75rem 0;
+  counter-increment: table;
+}
+
+.doc-table table {
+  margin: 0 auto;
+}
+
+.doc-table figcaption {
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-600);
+  margin-top: 0.625rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.doc-table figcaption::before {
+  content: "表 " counter(table) ": ";
+}
+
 .doc-figure-grid {
   display: grid;
   gap: 0.875rem;
@@ -868,4 +898,14 @@ body {
   height: auto;
   display: block;
   border-radius: 0.5rem;
+}
+
+@media print {
+  .markdown table {
+    display: table !important;
+    width: 100%;
+    max-width: 100%;
+    overflow: visible !important;
+    margin: 1rem 0 !important;
+  }
 }
