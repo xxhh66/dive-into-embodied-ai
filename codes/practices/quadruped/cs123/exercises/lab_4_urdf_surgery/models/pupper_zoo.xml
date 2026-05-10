@@ -1,0 +1,18 @@
+<mujoco model="pupper_zoo">
+  <compiler angle="radian" meshdir="../../shared/models/meshes/" autolimits="true"/>
+  <asset>
+    <texture name="grid" type="2d" builtin="checker" width="512" height="512" rgb1=".2 .4 .6" rgb2=".4 .6 .8"/>
+    <material name="grid" texture="grid" texrepeat="1 1" texuniform="true" reflectance="0"/>
+    <model name="original" file="pupper_v3.xml"/>
+    <model name="longleg" file="pupper_longleg.xml"/>
+    <model name="heavy" file="pupper_heavy.xml"/>
+  </asset>
+  <worldbody>
+    <geom name="floor" type="plane" size="2.8 1.2 .05" material="grid" condim="3" contype="1" conaffinity="1"/>
+    <light name="key" pos="0 0 3" dir="0 0 -1" diffuse="1 1 1"/>
+    <camera name="iso" pos="0.90 -1.15 0.68" xyaxes="0.787 0.616 0 -0.222 0.284 0.933"/>
+    <frame pos="-0.55 0 0"><attach model="original" body="base" prefix="original/"/></frame>
+    <frame pos="0 0 0"><attach model="longleg" body="base" prefix="longleg/"/></frame>
+    <frame pos="0.55 0 0"><attach model="heavy" body="base" prefix="heavy/"/></frame>
+  </worldbody>
+</mujoco>

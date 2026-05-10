@@ -607,7 +607,7 @@ data.qfrc_applied[0] = 2.0 if disturbance and data.time > 3.0 else 0.0
 
 2. 一台准直驱(QDD)四足机器人减速比 $N = 6$，另一台协作机械臂用谐波减速器 $N = 100$，两者电机本体惯量相同。如果把同一组 $K_p, K_d$ 直接移植过去，响应会发生什么变化？为什么？
 
-3. 1.5.2 节把 $K_d$ 称为"阻尼系数"，1.6.5 节又强调"$K_d$ 不是 MJCF 里的 `damping`"。这两个"阻尼"在物理上有什么区别？如果只在 MJCF 里把 `damping` 调大，能不能替代控制器里的 $K_d$？
+3. 1.5.2 节把 $K_d$ 称为"阻尼系数"，1.6.3 节又强调"$K_d$ 不是 MJCF 里的 `damping`"。这两个"阻尼"在物理上有什么区别？如果只在 MJCF 里把 `damping` 调大，能不能替代控制器里的 $K_d$？
 
 4. 既然计算力矩控制可以用动力学前馈精确消掉重力带来的稳态误差，是不是任何机器人都可以彻底放弃 I 项？在哪些场景下我们仍然必须保留 I？
 
@@ -630,9 +630,9 @@ data.qfrc_applied[0] = 2.0 if disturbance and data.time > 3.0 else 0.0
 - [ ] 把 PD 接到 `shared/models/leg.xml` 的 HFE 上，先用常值 $q_d = 0.3$ 把腿稳住
 - [ ] `mj_fullM` 读反射惯量 $I_\text{hfe}$，按 $K_d = 2\zeta\sqrt{K_p I},\ \zeta = 0.7$ 自动算 $K_d$
 - [ ] 在 $f \in \{0.2, 0.5, 1, 2, 3, 5, 8\}$ Hz 七点扫频，记录稳态幅值和相位差，画 magnitude / phase 双轴 Bode 图
-- [ ] 找 $-3$ dB 带宽，叠上理论二阶系统曲线——偏离的那一段对应 1.6.5 里的哪条坑？
+- [ ] 找 $-3$ dB 带宽——高频段曲线偏离一阶低通形状的部分，对应 1.6.3 里的哪条坑？
 
-完整 starter / 测试 / 交付清单见 [`team_learning/lab_1_pid_bode/`](https://github.com/robots-hub/cs123-simulation/tree/main/team_learning/lab_1_pid_bode)（cs123-simulation 私有仓库，组员请确认 GitHub 账号已加权限）。
+完整 starter / 测试 / 交付清单见 [`exercises/lab_1_pid_bode/`](https://github.com/datawhalechina/dive-into-embodied-ai/tree/master/codes/practices/quadruped/cs123/exercises/lab_1_pid_bode)。
 
 ## 参考资料
 

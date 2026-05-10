@@ -1,0 +1,25 @@
+<mujoco model="lab5_gait_zoo">
+  <compiler angle="radian" meshdir="../../shared/models/meshes/" autolimits="true"/>
+  <asset>
+    <texture name="grid" type="2d" builtin="checker" width="512" height="512" rgb1=".2 .4 .6" rgb2=".4 .6 .8"/>
+    <material name="grid" texture="grid" texrepeat="1 1" texuniform="true" reflectance="0"/>
+    <model name="pupper_on_stand" file="../../shared/models/pupper_v3_on_stand.xml"/>
+  </asset>
+  <visual>
+    <global offwidth="1280" offheight="480"/>
+  </visual>
+  <worldbody>
+    <geom name="floor" type="plane" size="2.4 0.9 .05" material="grid" condim="3" contype="1" conaffinity="1"/>
+    <light name="key" pos="0 0 3" dir="0 0 -1" diffuse="1 1 1"/>
+    <camera name="iso" pos="0.62 -1.25 0.56" xyaxes="0.890 0.456 0 -0.148 0.289 0.946"/>
+    <frame pos="-0.6 0 0"><attach model="pupper_on_stand" body="base" prefix="trot/"/></frame>
+    <frame pos="0 0 0"><attach model="pupper_on_stand" body="base" prefix="pace/"/></frame>
+    <frame pos="0.6 0 0"><attach model="pupper_on_stand" body="base" prefix="bound/"/></frame>
+  </worldbody>
+  <equality>
+    <!-- attach body="base" 不会带入子模型 equality；zoo 场景显式焊住三只 base。 -->
+    <weld body1="world" body2="trot/base" relpose="-0.6 0 0.18 1 0 0 0" solref="0.001 1" solimp="0.99 0.99 0.001"/>
+    <weld body1="world" body2="pace/base" relpose="0 0 0.18 1 0 0 0" solref="0.001 1" solimp="0.99 0.99 0.001"/>
+    <weld body1="world" body2="bound/base" relpose="0.6 0 0.18 1 0 0 0" solref="0.001 1" solimp="0.99 0.99 0.001"/>
+  </equality>
+</mujoco>

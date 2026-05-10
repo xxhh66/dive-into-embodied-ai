@@ -1,0 +1,14 @@
+<mujoco model="heavy">
+  <compiler angle="radian" meshdir="../../shared/models/meshes/" autolimits="true"/>
+  <default>
+    <joint armature="0.003" damping="0.04" frictionloss="0.002" limited="true"/>
+    <geom rgba="0.62 0.72 0.86 1" contype="0" conaffinity="0"/>
+    <default class="variant_torso"><geom type="box" size="0.1 0.055 0.025" mass="3.012" rgba="0.55 0.66 0.82 0.20"/></default>
+    <default class="variant_ballast"><geom type="box" size="0.065 0.042 0.018" mass="0" rgba="0.18 0.22 0.26 1" contype="0" conaffinity="0"/></default>
+    <default class="variant_hip"><geom type="sphere" size="0.026" mass="0.045" rgba="0.38 0.58 0.78 1"/></default>
+    <default class="variant_thigh"><geom type="capsule" fromto="0 0 0 0 0 -0.08" size="0.013" mass="0.186" rgba="0.52 0.62 0.82 1"/></default>
+    <default class="variant_calf"><geom type="capsule" fromto="0 0 0 0 0 -0.11" size="0.011" mass="0.05" rgba="0.50 0.78 0.56 1"/></default>
+    <default class="variant_foot"><geom type="sphere" pos="0 0 -0.11" size="0.018" mass="0.02" rgba="0.86 0.22 0.22 1" contype="1" conaffinity="1" condim="3" friction="1.2 0.04 0.01"/><site pos="0 0 -0.11" size="0.015" rgba="1 0.2 0.2 1"/></default>
+  </default>
+  <include file="../../shared/models/skeleton.xml"/>
+</mujoco>
