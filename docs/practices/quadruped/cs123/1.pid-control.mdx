@@ -450,13 +450,13 @@ python pd_single_joint.py
 
 ![单摆 PD 响应](figs/pd_single_joint.gif)
 
-*$K_p=20,\ K_d=1$，稳态略偏 $q_d$，差值就是 1.6.4 的稳态误差。*
+*$K_p=20,\ K_d=1$，稳态略偏 $q_d$，差值就是 [§1.6.4](/docs/practices/quadruped/cs123/pid-control#164-实验扰动误差) 的稳态误差。*
 
 </div>
 
 ### 1.6.3 实验：增益响应
 
-只看 1.6.2 里 $K_p=20,\ K_d=1$ 那条单次响应，$K_p$、$K_d$ 仍然像两个调到不报错就行的旋钮。这一节固定 $K_p$，让 $K_d$ 扫过欠阻尼 / 接近临界 / 过阻尼三个区段，把每个旋钮单独负责什么看清楚。
+只看 [§1.6.2](/docs/practices/quadruped/cs123/pid-control#162-单摆-pd) 里 $K_p=20,\ K_d=1$ 那条单次响应，$K_p$、$K_d$ 仍然像两个调到不报错就行的旋钮。这一节固定 $K_p$，让 $K_d$ 扫过欠阻尼 / 接近临界 / 过阻尼三个区段，把每个旋钮单独负责什么看清楚。
 
 把下面脚本保存为 `pd_experiments.py`，和 `pendulum.xml` 放在同一个目录下。它不打开 viewer，直接跑 MuJoCo 物理并画出实验 1 / 实验 2 的曲线：
 
@@ -559,7 +559,7 @@ python pd_experiments.py
 
 把三条曲线放在一起看，会更容易看出几个现象：
 
-1. **$K_p$ 决定回正力矩的量级**。$K_p$ 要先大到能抵消重力矩 $\tau_g = m g L/2 \cdot \sin q_d$，单摆才能到达 $q_d$ 附近；即便如此稳态仍会偏一截，这个偏差正是 1.6.4 要拆解的稳态误差，调 $K_d$ 不解决。
+1. **$K_p$ 决定回正力矩的量级**。$K_p$ 要先大到能抵消重力矩 $\tau_g = m g L/2 \cdot \sin q_d$，单摆才能到达 $q_d$ 附近；即便如此稳态仍会偏一截，这个偏差正是 [§1.6.4](/docs/practices/quadruped/cs123/pid-control#164-实验扰动误差) 要拆解的稳态误差，调 $K_d$ 不解决。
 2. **$K_d$ 是控制器主动出的阻尼，跟 MJCF 里的 `damping` 不是同一件事**。后者是关节本身的物理阻尼，写在 XML 里、和控制器无关；想干净地观察 $K_d$ 的作用，就把 `damping` 设小一点，避免两份阻尼混在一起。
 3. **$K_p$ 太大会让仿真先于真机崩**。$K_p$ 加到某个值之后曲线出现高频噪声甚至发散，这是 `timestep` 跟不上 $\omega_n = \sqrt{K_p / I}$ 的信号，不是 PD 公式错了；把 `timestep` 调小、或把 $K_p$ 减小，都能压下去。
 
@@ -599,7 +599,7 @@ data.qfrc_applied[0] = 2.0 if disturbance and data.time > 3.0 else 0.0
 
 - **MuJoCo 里 `position` 执行器内部就是一条 PD**(`kp` / `kv`)，想看清 P 与 D 各自的贡献就用 `motor` + 自写 PD。`timestep` 是物理步长而非控制周期，要对齐真机控制频率，得让 Python 循环每 $N$ 个 `timestep` 更新一次 `ctrl`。
 
-到这里，我们已经能让一个单自由度关节稳定到达任意目标角度——这是后面所有内容的地基。第 5 章会把同一套 PD 同时套到四足机器人的全部关节上去拼出 trot 步态；再之后的 RL 步态、LLM 控制，本质上都在找一个更复杂的 $\pi(q,\dot q,\dots)\to \tau$，而最内层那条 PD 通常仍然存在。
+到这里，我们已经能让一个单自由度关节稳定到达任意目标角度——这是后面所有内容的地基。[§5](/docs/practices/quadruped/cs123/gait-control) 会把同一套 PD 同时套到四足机器人的全部关节上去拼出 trot 步态；再之后的 RL 步态、LLM 控制，本质上都在找一个更复杂的 $\pi(q,\dot q,\dots)\to \tau$，而最内层那条 PD 通常仍然存在。
 
 ## 思考
 
@@ -607,7 +607,7 @@ data.qfrc_applied[0] = 2.0 if disturbance and data.time > 3.0 else 0.0
 
 2. 一台准直驱(QDD)四足机器人减速比 $N = 6$，另一台协作机械臂用谐波减速器 $N = 100$，两者电机本体惯量相同。如果把同一组 $K_p, K_d$ 直接移植过去，响应会发生什么变化？为什么？
 
-3. 1.5.2 节把 $K_d$ 称为"阻尼系数"，1.6.3 节又强调"$K_d$ 不是 MJCF 里的 `damping`"。这两个"阻尼"在物理上有什么区别？如果只在 MJCF 里把 `damping` 调大，能不能替代控制器里的 $K_d$？
+3. [§1.5.2](/docs/practices/quadruped/cs123/pid-control#152-弹簧-阻尼器) 把 $K_d$ 称为"阻尼系数"，[§1.6.3](/docs/practices/quadruped/cs123/pid-control#163-实验增益响应) 又强调"$K_d$ 不是 MJCF 里的 `damping`"。这两个"阻尼"在物理上有什么区别？如果只在 MJCF 里把 `damping` 调大，能不能替代控制器里的 $K_d$？
 
 4. 既然计算力矩控制可以用动力学前馈精确消掉重力带来的稳态误差，是不是任何机器人都可以彻底放弃 I 项？在哪些场景下我们仍然必须保留 I？
 
@@ -615,13 +615,13 @@ data.qfrc_applied[0] = 2.0 if disturbance and data.time > 3.0 else 0.0
 
 ## 动手任务
 
-到这里我们已经能让一个单关节 PD 稳定到达任意目标。组队 Lab 1 把同一个 PD 接到 Pupper HFE 关节上**换到频域看一遍**——用一系列正弦输入扫频，在 Bode 图上读出 1.5 节那对 $\omega_n, \zeta$，再亲眼看 1.6.5 节"力矩饱和把高频压平"是怎么发生的。
+到这里我们已经能让一个单关节 PD 稳定到达任意目标。组队 Lab 1 把同一个 PD 接到 Pupper HFE 关节上**换到频域看一遍**——用一系列正弦输入扫频，在 Bode 图上读出 [§1.5](/docs/practices/quadruped/cs123/pid-control#15-pd-控制) 那对 $\omega_n, \zeta$，再亲眼看"力矩饱和把高频压平"是怎么发生的。
 
 <div align="center">
 
 ![Lab 1 teaser：HFE 跟踪 0.3 Hz 正弦](figs/lab1_hfe_sine.gif)
 
-*HFE 关节跟踪 0.3 Hz 正弦目标：左侧是 Pupper 单腿响应，右侧是同一组数据实时打到 Bode 图上的两个点（一组幅值、一组相位）。低频 $|G|\approx 1$、相位 $\approx 0$；扫到高频段我们会看到增益下降、相位往 $-180°$ 走——本章 1.5 那对 $\omega_n, \zeta$ 在频域留下的指纹。*
+*HFE 关节跟踪 0.3 Hz 正弦目标：左侧是 Pupper 单腿响应，右侧是同一组数据实时打到 Bode 图上的两个点（一组幅值、一组相位）。低频 $|G|\approx 1$、相位 $\approx 0$；扫到高频段我们会看到增益下降、相位往 $-180°$ 走——本章 [§1.5](/docs/practices/quadruped/cs123/pid-control#15-pd-控制) 那对 $\omega_n, \zeta$ 在频域留下的指纹。*
 
 </div>
 
@@ -630,7 +630,7 @@ data.qfrc_applied[0] = 2.0 if disturbance and data.time > 3.0 else 0.0
 - [ ] 把 PD 接到 `shared/models/leg.xml` 的 HFE 上，先用常值 $q_d = 0.3$ 把腿稳住
 - [ ] `mj_fullM` 读反射惯量 $I_\text{hfe}$，按 $K_d = 2\zeta\sqrt{K_p I},\ \zeta = 0.7$ 自动算 $K_d$
 - [ ] 在 $f \in \{0.2, 0.5, 1, 2, 3, 5, 8\}$ Hz 七点扫频，记录稳态幅值和相位差，画 magnitude / phase 双轴 Bode 图
-- [ ] 找 $-3$ dB 带宽——高频段曲线偏离一阶低通形状的部分，对应 1.6.3 里的哪条坑？
+- [ ] 找 $-3$ dB 带宽——高频段曲线偏离一阶低通形状的部分，对应 [§1.6.3](/docs/practices/quadruped/cs123/pid-control#163-实验增益响应) 里的哪条坑？
 
 完整 starter / 测试 / 交付清单见 [`exercises/lab_1_pid_bode/`](https://github.com/datawhalechina/dive-into-embodied-ai/tree/master/codes/practices/quadruped/cs123/exercises/lab_1_pid_bode)。
 
