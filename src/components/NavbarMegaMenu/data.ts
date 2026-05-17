@@ -117,6 +117,14 @@ export const megaMenus: MegaMenuConfig[] = [
             keywords: ['控制', '策略训练'],
           },
           {
+            icon: '🎚️',
+            title: '控制器',
+            description: '从 PID、LQR 到 MPC 与阻抗控制的连续教程。',
+            to: '/docs/foundations/controllers/intro',
+            activeBasePath: '/docs/foundations/controllers',
+            keywords: ['PID', 'MPC', 'LQR'],
+          },
+          {
             icon: '🧭',
             title: '运动规划',
             description: '从模型、坐标树到 MoveIt 2 规划闭环。',

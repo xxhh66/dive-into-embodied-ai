@@ -17,6 +17,7 @@ displayed_sidebar: foundationsOverviewSidebar
 | 大脑：智能决策 | [视觉-语言-动作大模型(VLA)](./vla/vla-intro) | 当前具身大模型在做什么? | VLA 相关项目 |
 | 大脑：智能决策 | [世界模型(World Model)](./world-model/placeholder) | 世界模型在具身场景下怎么落地? | VLA 相关项目 |
 | 小脑：运动控制 | [强化学习控制](./rl-for-robotics/ppo) | 策略学习如何接到连续控制和机器人任务上? | 四足、双足、机械臂项目 |
+| 小脑：运动控制 | [控制器](./controllers/intro) | 如何从 PID、LQR 学到 MPC、阻抗控制和 ROS2 / 仿真集成? | 关节控制、轨迹跟踪、移动机器人项目 |
 | 小脑：运动控制 | [运动规划](./robotics-and-ros2/moveit2_basics) | 如何从模型、坐标树进入 MoveIt 2 规划闭环? | 机械臂、移动操作项目 |
 | 感官：感知系统 | [视觉语言大模型(VLM)](./vlm/intro) | 多模态模型如何理解图像与语言? | VLA 相关项目 |
 | 感官：感知系统 | [定位与触觉感知](./perception/placeholder) | 机器人如何理解外部环境和自身接触状态? | 移动操作、四足、人形项目 |
