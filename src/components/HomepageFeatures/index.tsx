@@ -40,7 +40,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: '求职面试',
-    description: '岗位拆解、面经、简历表达和公司技术栈。',
+    description: '岗位技能拆解、面经八股和招聘信息。',
     link: '/docs/career/intro',
     eyebrow: 'Career loop',
     icon: BriefcaseBusiness,

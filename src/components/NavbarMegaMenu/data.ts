@@ -33,7 +33,7 @@ export const megaMenus: MegaMenuConfig[] = [
     id: 'overview',
     label: '零基础入门',
     activeBasePaths: ['/docs/overview'],
-    panelWidth: 1020,
+    panelWidth: 780,
     columns: [
       {
         title: '路径选择',
@@ -45,13 +45,6 @@ export const megaMenus: MegaMenuConfig[] = [
             to: '/docs/overview/learning-path',
             keywords: ['入门', '路径'],
             featured: true,
-          },
-          {
-            icon: '🌱',
-            title: '具身智能路线图',
-            description: '先建立方向认知，再决定补哪些技能。',
-            to: '/docs/overview/embodied-ai-roadmap',
-            keywords: ['路线图', '认知'],
           },
         ],
       },
@@ -67,32 +60,6 @@ export const megaMenus: MegaMenuConfig[] = [
             keywords: ['四足', '项目'],
             featured: true,
           },
-          {
-            icon: '🏢',
-            title: '具身公司全景',
-            description: '用公司和产品方向辅助判断学习重点。',
-            to: '/docs/overview/company-landscape',
-            keywords: ['公司', '产品方向'],
-          },
-        ],
-      },
-      {
-        title: '背景迁移',
-        items: [
-          {
-            icon: '🧠',
-            title: '哪些人适合转具身算法？',
-            description: '判断既有经验如何迁移到具身岗位。',
-            to: '/docs/overview/algorithm-engineer-transition',
-            keywords: ['转型', '岗位匹配'],
-          },
-          {
-            icon: '🧩',
-            title: '机器人学和 ROS2 路线图',
-            description: '按模块推进，补齐工程闭环能力。',
-            to: '/docs/overview/robotics-and-ros2-roadmap',
-            keywords: ['ROS2', '工程闭环'],
-          },
         ],
       },
     ],
@@ -106,7 +73,7 @@ export const megaMenus: MegaMenuConfig[] = [
     id: 'foundations',
     label: '技能树进阶',
     activeBasePaths: ['/docs/foundations'],
-    panelWidth: 1020,
+    panelWidth: 1280,
     columns: [
       {
         title: '大脑：智能决策',
@@ -169,7 +136,7 @@ export const megaMenus: MegaMenuConfig[] = [
         ],
       },
       {
-        title: '感官 / 神经 / 硬件',
+        title: '感知系统',
         items: [
           {
             icon: '👁️',
@@ -180,6 +147,19 @@ export const megaMenus: MegaMenuConfig[] = [
             keywords: ['视觉', 'VLM'],
           },
           {
+            icon: '🦶',
+            title: '定位与触觉感知',
+            description: 'SLAM、足端接触、触觉传感和多传感器融合。',
+            to: '/docs/foundations/perception/placeholder',
+            activeBasePath: '/docs/foundations/perception',
+            keywords: ['SLAM', '触觉'],
+          },
+        ],
+      },
+      {
+        title: '仿真环境',
+        items: [
+          {
             icon: '🧪',
             title: '仿真工具基础',
             description: 'MuJoCo / Isaac Sim / Gymnasium / PyBullet 快速上手。',
@@ -187,6 +167,11 @@ export const megaMenus: MegaMenuConfig[] = [
             activeBasePath: '/docs/foundations/simulation',
             keywords: ['仿真', 'MuJoCo'],
           },
+        ],
+      },
+      {
+        title: '神经 / 硬件 / 数据 / 安全',
+        items: [
           {
             icon: '🔌',
             title: 'CAN 与 MCU 通信',
@@ -319,7 +304,7 @@ export const megaMenus: MegaMenuConfig[] = [
     id: 'career',
     label: '求职面试',
     activeBasePaths: ['/docs/career'],
-    panelWidth: 1020,
+    panelWidth: 620,
     columns: [
       {
         title: '核心准备',
@@ -348,40 +333,6 @@ export const megaMenus: MegaMenuConfig[] = [
             to: '/docs/career/job-listings/placeholder',
             activeBasePath: '/docs/career/job-listings',
             keywords: ['招聘', '内推'],
-          },
-        ],
-      },
-      {
-        title: '材料表达',
-        items: [
-          {
-            icon: '📄',
-            title: '简历与作品集',
-            description: '怎么把项目写进简历和作品集。',
-            to: '/docs/career/resume-portfolio/placeholder',
-            activeBasePath: '/docs/career/resume-portfolio',
-            keywords: ['简历', '作品集'],
-          },
-        ],
-      },
-      {
-        title: '信息与机会',
-        items: [
-          {
-            icon: '🏢',
-            title: '公司技术栈',
-            description: '主流具身公司在用什么栈。',
-            to: '/docs/career/company-tech-stacks/placeholder',
-            activeBasePath: '/docs/career/company-tech-stacks',
-            keywords: ['公司', '技术栈'],
-          },
-          {
-            icon: '🤝',
-            title: '社区与内推',
-            description: '社群、活动与内推机会。',
-            to: '/docs/career/community/placeholder',
-            activeBasePath: '/docs/career/community',
-            keywords: ['社区', '内推'],
           },
         ],
       },

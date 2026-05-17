@@ -16,7 +16,7 @@
 
 ## 项目定位
 
-面向**求职与转行**的具身智能开源教程,不追求覆盖所有论文,而是帮读者按「认知 → 项目 → 面试」三步走通一条可落地的学习路径:先建立行业与技术栈的整体认知,再在四类本体(机械臂、四足、人形、移动操作)上做能写进简历的项目,最后把知识点整理成岗位技能、简历和面经。
+面向**求职与转行**的具身智能开源教程,不追求覆盖所有论文,而是帮读者按「认知 → 项目 → 面试」三步走通一条可落地的学习路径:先建立行业与技术栈的整体认知,再在四类本体(机械臂、四足、人形、移动操作)上做能展示的项目,最后把知识点整理成岗位技能、面经和招聘信息。
 
 ## 项目受众
 
@@ -26,48 +26,99 @@
 
 ## 内容大纲
 
-教程分为「总览 + 基础篇 + 实践篇 + 求职篇」三篇制,下表列出了每一篇下的主要章节与当前状态。章节名后的链接直接指向在线文档。
+教程分为「零基础入门 + 技能树进阶 + 项目实战 + 求职面试」四个阶段。章节名后的链接直接指向当前文档或对应目录。
 
 状态标记说明:**✅ 可用** = 章节内容完整,可直接阅读;**🚧 部分可用** = 一部分章节有内容、一部分仍是占位;**🚧 占位中** = 目录已建但只有占位页;**⏳ 待补充** = 暂未开工。
 
-### 总览
+## 零基础入门
+
+零基础入门只保留两个入口:先看路径,再用一个完整项目建立整体感。
 
 | 章节 | 简介 | 状态 |
 | :--- | :--- | :--- |
-| [项目与学习路径总览](docs/overview/intro.md) | 学习主线、公司图谱、算法工程师转岗路径 | ✅ 可用 |
+| [学习路径](docs/overview/learning-path.md) | 从零基础到项目和求职的主线安排 | ✅ 可用 |
+| [从0到1搭建四足机器人](docs/practices/quadruped/cs123/0.intro.md) | 从一个完整仿真项目入手理解具身智能系统 | ✅ 可用 |
 
-### 基础篇:理论知识
+## 技能树进阶
 
-| 章节 | 简介 | 状态 |
-| :--- | :--- | :--- |
-| [具身智能入门](docs/foundations/embodied-ai-intro/) | 本体、关节、传感器、行业现状与公司图谱 | 🚧 占位中 |
-| [机器人运动学与 ROS2 基础教程](docs/foundations/robotics-and-ros2/) | 坐标变换、正/逆运动学、ROS2 工程、tf2、URDF、MoveIt 2 | ✅ 可用 |
-| [仿真工具基础](docs/foundations/simulation/) | Isaac Sim、MuJoCo、Gymnasium、PyBullet 快速上手 | ✅ 可用 |
-| [强化学习与控制](docs/foundations/rl-for-robotics/) | MDP、DQN、PPO、SAC、DDPG/TD3,含模仿学习 | ✅ 可用 |
-| [视觉语言大模型(VLM)](docs/foundations/vlm/) | Transformer、ViT、视觉编码器、多模态融合 | ✅ 可用 |
-| [视觉-语言-动作大模型(VLA)](docs/foundations/vla/) | RT-1/RT-2、OpenVLA、ACT、Diffusion Policy、π 系列 | ✅ 可用 |
-| [世界模型(World Model)](docs/foundations/world-model/) | 主流方案与具身应用 | 🚧 占位中 |
+技能树进阶按机器人系统能力拆分。当前优先把已有内容并入技能树,空缺模块先保留占位。
 
-### 实践篇:项目实践
+### 大脑：智能决策
 
 | 章节 | 简介 | 状态 |
 | :--- | :--- | :--- |
-| [机械臂](docs/practices/robot-arm/) | MuJoCo 抓放、DDPG、LeRobot 数据采集已可用;ROS2 控制、模仿学习、VLA 控制占位中 | 🚧 部分可用 |
-| [四足机器人](docs/practices/quadruped/) | CS123 课程复刻 9 章可用;sim2sim、sim2real 指南占位中 | 🚧 部分可用 |
-| [双足/人形](docs/practices/humanoid/) | 平衡控制、动作跟踪、任务规划 Demo | 🚧 占位中 |
+| [强化学习决策](docs/foundations/rl-for-robotics/1.intro.md) | MDP、DQN、PPO、SAC、DDPG/TD3 与模仿学习 | ✅ 可用 |
+| [视觉-语言-动作大模型(VLA)](docs/foundations/vla/vla-intro.md) | RT-1/RT-2、OpenVLA、ACT、Diffusion Policy、π 系列 | ✅ 可用 |
+| [World-Model](docs/foundations/world-model/placeholder.md) | 世界模型在具身场景下的落地路径 | 🚧 占位中 |
+
+### 小脑：运动控制
+
+| 章节 | 简介 | 状态 |
+| :--- | :--- | :--- |
+| [机器人运动学与 ROS2 基础](docs/foundations/robotics-and-ros2/0.intro.md) | 坐标变换、正/逆运动学、ROS2 工程、tf2、URDF、MoveIt 2 | ✅ 可用 |
+| [控制器](docs/practices/quadruped/cs123/1.pid-control.mdx) | PID / MPC / Impedance Control / Whole-body Control 等控制基础 | 🚧 部分可用 |
+| [强化学习控制](docs/foundations/rl-for-robotics/10.ppo.md) | 把策略学习接到连续控制和机器人任务上 | ✅ 可用 |
+| [运动规划](docs/foundations/robotics-and-ros2/10.moveit2_basics.md) | Motion Planning 与 MoveIt 2 规划闭环 | ✅ 可用 |
+
+### 感官：感知系统
+
+本体感知：机器人必须知道自己在哪里、姿态如何、速度如何、是否失稳。
+
+外部感知：相机、雷达、触觉、电机电流、IMU、足端接触、机身姿态、末端位置。
+
+| 章节 | 简介 | 状态 |
+| :--- | :--- | :--- |
+| [视觉感知与 VLM](docs/foundations/vlm/0.intro.md) | Transformer、ViT、视觉编码器与多模态融合 | ✅ 可用 |
+| [定位与触觉感知](docs/foundations/perception/placeholder.md) | SLAM、足端接触、触觉传感和多传感器融合 | 🚧 占位中 |
+
+### 仿真：模拟环境
+
+| 章节 | 简介 | 状态 |
+| :--- | :--- | :--- |
+| [仿真工具基础](docs/foundations/simulation/1.intro.md) | Isaac Sim、MuJoCo、Gymnasium、PyBullet 快速上手 | ✅ 可用 |
+
+### 神经系统：基础设施与通信
+
+| 章节 | 简介 | 状态 |
+| :--- | :--- | :--- |
+| [ROS2 工程基础](docs/foundations/robotics-and-ros2/4.ros2_engineering_basics.md) | 工作空间、功能包、节点组织和系统通信 | ✅ 可用 |
+| [CAN 与 MCU 通信](docs/foundations/communication/can-mcu.md) | 底层通信、执行器协议和上下位机链路 | 🚧 占位中 |
+
+### 骨骼肌肉：硬件结构
+
+| 章节 | 简介 | 状态 |
+| :--- | :--- | :--- |
+| [机械结构](docs/foundations/hardware/placeholder.md) | 连杆、关节、电机、减速器和末端执行器 | 🚧 占位中 |
+
+### 消化与造血：数据工程
+
+| 章节 | 简介 | 状态 |
+| :--- | :--- | :--- |
+| [模仿学习](docs/foundations/rl-for-robotics/12.imitation-learning.md) | BC、DAgger、IRL 等从示教数据学习策略的方法 | ✅ 可用 |
+| [LeRobot 中文课程讲义](docs/practices/robot-arm/data-collection/lerobot-course/index.md) | 机器人学习与 LeRobot 工具链主线 | ✅ 可用 |
+
+### 反射系统：安全防护
+
+| 章节 | 简介 | 状态 |
+| :--- | :--- | :--- |
+| [安全防护](docs/foundations/safety/placeholder.md) | 限位、急停、碰撞检测和实机部署检查 | 🚧 占位中 |
+
+## 项目实战
+
+| 章节 | 简介 | 状态 |
+| :--- | :--- | :--- |
+| [机械臂](docs/practices/robot-arm/placeholder.md) | MuJoCo 抓放、DDPG、LeRobot 数据采集已可用;ROS2 控制、模仿学习、VLA 控制占位中 | 🚧 部分可用 |
+| [四足机器人](docs/practices/quadruped/placeholder.md) | CS123 课程复刻 8 章可用;sim2sim、sim2real 指南占位中 | 🚧 部分可用 |
+| [双足 / 人形](docs/practices/humanoid/placeholder.md) | 平衡控制、动作跟踪、任务规划 Demo | 🚧 占位中 |
 | [移动操作](docs/practices/mobile-manipulation/) | 导航基础、视觉语言导航、移动操作 Demo | 🚧 占位中 |
 
-### 求职篇:求职面试
+## 求职面试
 
 | 章节 | 简介 | 状态 |
 | :--- | :--- | :--- |
 | [岗位技能拆解](docs/career/job-skill-map/) | 强化学习、VLA 等方向的技能点拆解 | 🚧 占位中 |
-| [转岗路径](docs/career/transition-paths/) | 从 ML / CV / 自动驾驶 / 传统机器人切入具身 | ✅ 可用 |
 | [面经与八股](docs/career/interview-questions/) | 具身方向常见面试题与高频八股 | 🚧 占位中 |
-| [简历与作品集](docs/career/resume-portfolio/) | 简历结构、项目描述、GitHub 作品集 | 🚧 占位中 |
-| [公司技术栈](docs/career/company-tech-stacks/) | 头部具身公司主力技术栈与方向差异 | 🚧 占位中 |
 | [招聘信息](docs/career/job-listings/) | Top 具身公司在招岗位汇总 | 🚧 占位中 |
-| [社区与内推](docs/career/community/) | 社群、内推渠道、开源协作入口 | 🚧 占位中 |
 
 ## 组队学习
 
