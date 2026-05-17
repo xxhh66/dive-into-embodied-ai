@@ -49,23 +49,19 @@
 
 ### 技能树进阶
 
-当前下拉拆成 5 列：
+当前下拉拆成 4 列：
 
 - `大脑：智能决策`
 - `小脑：运动控制`
 - `感知系统`
-- `仿真环境`
-- `神经 / 硬件 / 数据`
+- `工程底座`
 
 用户明确要求：感知和仿真要单独分类出来。
 
 技能树概述页和侧边栏也已同步：
 
 - 感知：`docs/foundations/vlm/intro`、`docs/foundations/perception/placeholder`
-- 仿真：`docs/foundations/simulation/intro`
-- 神经系统：ROS2、CAN 与 MCU 通信
-- 硬件：机械结构
-- 数据：模仿学习、LeRobot
+- 工程底座：仿真、ROS2、CAN/MCU、机械结构、模仿学习、LeRobot
 
 ### 项目实战
 
@@ -102,7 +98,7 @@
 - `docs/overview/intro.md` 收窄为零基础入门两个入口
 - `src/components/NavbarMegaMenu/data.ts`：
   - 零基础入门只保留两个卡片
-  - 技能树进阶拆出感知系统与仿真环境
+  - 技能树进阶保留感知系统，并将仿真、ROS2、通信、硬件和数据合并为工程底座
   - 求职面试只保留三项核心准备
 - `docs/foundations/intro.md` 同步技能树说明
 - `src/components/HomepageFeatures/index.tsx` 同步求职面试卡片描述

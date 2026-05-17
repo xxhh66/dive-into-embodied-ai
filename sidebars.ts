@@ -50,36 +50,14 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '仿真：模拟环境',
+      label: '工程底座',
       collapsed: false,
       items: [
         { type: 'link', label: '仿真工具基础', href: '/docs/foundations/simulation/intro' },
-      ],
-    },
-    {
-      type: 'category',
-      label: '神经系统：基础设施与通信',
-      collapsed: false,
-      items: [
         { type: 'link', label: 'ROS2', href: '/docs/foundations/robotics-and-ros2/intro' },
         { type: 'link', label: 'CAN 与 MCU 通信', href: '/docs/foundations/communication/can-mcu' },
-      ],
-    },
-    {
-      type: 'category',
-      label: '骨骼肌肉：硬件结构',
-      collapsed: false,
-      items: [
         { type: 'link', label: '机械结构', href: '/docs/foundations/hardware/placeholder' },
-      ],
-    },
-    {
-      type: 'category',
-      label: '消化与造血：数据工程',
-      collapsed: false,
-      items: [
-        { type: 'link', label: '模仿学习', href: '/docs/foundations/rl-for-robotics/imitation-learning' },
-        { type: 'link', label: 'LeRobot 开源课程', href: '/docs/practices/robot-arm/data-collection/lerobot-course' },
+        { type: 'link', label: '数据工程与模仿学习', href: '/docs/foundations/rl-for-robotics/imitation-learning' },
       ],
     },
   ],

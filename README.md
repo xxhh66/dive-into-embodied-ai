@@ -41,7 +41,7 @@
 
 ## 技能树进阶
 
-技能树进阶按当前导航的五列组织:大脑、小脑、感知系统、仿真环境、神经 / 硬件 / 数据。当前优先把已有内容并入技能树,空缺模块先保留占位。
+技能树进阶按当前导航的四列组织:大脑、小脑、感知系统、工程底座。当前优先把已有内容并入技能树,空缺模块先保留占位。
 
 ### 大脑：智能决策
 
@@ -69,16 +69,11 @@
 | [视觉感知与 VLM](docs/foundations/vlm/0.intro.md) | Transformer、ViT、视觉编码器与多模态融合 | ✅ 可用 |
 | [定位与触觉感知](docs/foundations/perception/placeholder.md) | SLAM、足端接触、触觉传感和多传感器融合 | 🚧 占位中 |
 
-### 仿真：模拟环境
+### 工程底座
 
 | 章节 | 简介 | 状态 |
 | :--- | :--- | :--- |
 | [仿真工具基础](docs/foundations/simulation/1.intro.md) | Isaac Sim、MuJoCo、Gymnasium、PyBullet 快速上手 | ✅ 可用 |
-
-### 神经 / 硬件 / 数据
-
-| 章节 | 简介 | 状态 |
-| :--- | :--- | :--- |
 | [ROS2](docs/foundations/robotics-and-ros2/0.intro.md) | 坐标变换、FK/IK、tf2、URDF 与 MoveIt 2 | ✅ 可用 |
 | [CAN 与 MCU 通信](docs/foundations/communication/can-mcu.md) | 底层通信、执行器协议和上下位机链路 | 🚧 占位中 |
 | [机械结构](docs/foundations/hardware/placeholder.md) | 连杆、关节、电机、减速器和末端执行器 | 🚧 占位中 |

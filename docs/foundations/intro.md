@@ -6,7 +6,7 @@ displayed_sidebar: foundationsOverviewSidebar
 
 # 技能树进阶：按系统能力补齐具身智能工程底座
 
-技能树进阶围绕后续项目实践需要什么就补什么，让学习者按“大脑、小脑、感知系统、仿真环境、神经 / 硬件 / 数据”的方式定位能力缺口，再进入已有专题连续学习。
+技能树进阶围绕后续项目实践需要什么就补什么，让学习者按“大脑、小脑、感知系统、工程底座”的方式定位能力缺口，再进入已有专题连续学习。
 
 ## 当前可学习模块
 
@@ -20,8 +20,8 @@ displayed_sidebar: foundationsOverviewSidebar
 | 小脑：运动控制 | [运动规划](./robotics-and-ros2/moveit2_basics) | 如何从模型、坐标树进入 MoveIt 2 规划闭环? | 机械臂、移动操作项目 |
 | 感官：感知系统 | [视觉语言大模型(VLM)](./vlm/intro) | 多模态模型如何理解图像与语言? | VLA 相关项目 |
 | 感官：感知系统 | [定位与触觉感知](./perception/placeholder) | 机器人如何理解外部环境和自身接触状态? | 移动操作、四足、人形项目 |
-| 仿真：模拟环境 | [仿真工具基础](./simulation/intro) | 怎么在仿真中跑机器人？ | 所有实践项目 |
-| 神经 / 硬件 / 数据 | [ROS2](./robotics-and-ros2/intro) | 坐标变换、FK/IK、tf2、URDF 与 MoveIt 2 如何串成系统? | 机械臂、四足、所有实践项目 |
-| 神经 / 硬件 / 数据 | [CAN 与 MCU 通信](./communication/can-mcu) | 上位机、下位机和执行器如何稳定通信? | 真机部署、硬件适配 |
-| 神经 / 硬件 / 数据 | [机械结构](./hardware/placeholder) | 连杆、关节、电机和末端执行器如何组成机器人本体? | 本体选型、真机项目 |
-| 神经 / 硬件 / 数据 | [模仿学习](./rl-for-robotics/imitation-learning) | 如何从示教数据训练策略? | LeRobot、VLA、机械臂项目 |
+| 工程底座 | [仿真工具基础](./simulation/intro) | 怎么在仿真中跑机器人？ | 所有实践项目 |
+| 工程底座 | [ROS2](./robotics-and-ros2/intro) | 坐标变换、FK/IK、tf2、URDF 与 MoveIt 2 如何串成系统? | 机械臂、四足、所有实践项目 |
+| 工程底座 | [CAN 与 MCU 通信](./communication/can-mcu) | 上位机、下位机和执行器如何稳定通信? | 真机部署、硬件适配 |
+| 工程底座 | [机械结构](./hardware/placeholder) | 连杆、关节、电机和末端执行器如何组成机器人本体? | 本体选型、真机项目 |
+| 工程底座 | [模仿学习](./rl-for-robotics/imitation-learning) | 如何从示教数据训练策略? | LeRobot、VLA、机械臂项目 |

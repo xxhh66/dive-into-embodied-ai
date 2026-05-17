@@ -73,7 +73,7 @@ export const megaMenus: MegaMenuConfig[] = [
     id: 'foundations',
     label: '技能树进阶',
     activeBasePaths: ['/docs/foundations'],
-    panelWidth: 1280,
+    panelWidth: 1120,
     columns: [
       {
         title: '大脑：智能决策',
@@ -148,7 +148,7 @@ export const megaMenus: MegaMenuConfig[] = [
         ],
       },
       {
-        title: '仿真环境',
+        title: '工程底座',
         items: [
           {
             icon: '🧪',
@@ -158,11 +158,6 @@ export const megaMenus: MegaMenuConfig[] = [
             activeBasePath: '/docs/foundations/simulation',
             keywords: ['仿真', 'MuJoCo'],
           },
-        ],
-      },
-      {
-        title: '神经 / 硬件 / 数据',
-        items: [
           {
             icon: '🦾',
             title: 'ROS2',
