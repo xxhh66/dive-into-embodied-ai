@@ -1,6 +1,7 @@
 ---
 title: "课程预告"
 sidebar_position: 0
+displayed_sidebar: practicesFlamingoCourseSidebar
 description: "两轮足 Flamingo 机器人的 Isaac Lab 仿真课程预告——基于 jaykorea/Isaac-RL-Two-wheel-Legged-Bot 改编，覆盖欠驱动平衡、PPO + CaT 训练、跨仿真零样本迁移。"
 ---
 

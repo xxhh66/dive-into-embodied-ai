@@ -15,9 +15,11 @@ sidebar_position: 1
 | [四足机器人](./quadruped/placeholder) | 4 个 | 强化学习 / 控制 / sim2real |
 | [双足 / 人形](./humanoid/placeholder) | 3 个 | 进阶控制 / 任务规划 |
 | [移动操作](./mobile-manipulation/placeholder) | 3 个 | 导航 + 操作综合 |
+| [轮足机器人](./wheel-legged/placeholder) | 预告 | 欠驱动平衡 / Isaac Lab / 跨仿真验证 |
 
 ## 独立课程
 
 - [从零到一搭建四足机器人](./quadruped/cs123/intro)：CS123 四足仿真课程，按 8 章独立组织。
 - [LeRobot 中文课程讲义](./robot-arm/data-collection/lerobot-course)：机器人学习与 LeRobot 工具链主线。
 - [SO-101 + LeRobot 真机教程](./robot-arm/data-collection/so101-lerobot-real)：从硬件连接到策略回放的最小真机流程。
+- [两轮足 Flamingo · Isaac Lab](./wheel-legged/flamingo-isaaclab/preview)：Isaac Lab + rsl_rl 训练两轮足策略，导出 ONNX 后在 MuJoCo 中零样本验证。
