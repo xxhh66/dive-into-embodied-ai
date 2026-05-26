@@ -1,7 +1,8 @@
-"""Lab 5 filled starter：步态动物园 (The Gait Zoo)。
+"""Lab 5 starter：步态动物园 (The Gait Zoo)。
 
-作者侧先写 `starter_todo.py`，再把三处 TODO 填成这份 `starter.py`。
-交付学生版时抽走本文件，并把 `starter_todo.py` 改名为 `starter.py`。
+本文件是教程主线使用的完整脚本。建议先直接运行，确认三种步态
+都能生成，再按 `leg_phase` -> `foot_trajectory` -> `gait_step`
+的顺序阅读步态生成链路。
 """
 
 from __future__ import annotations
@@ -32,7 +33,7 @@ MODEL_PATH = LAB_DIR / "models" / "pupper_zoo.xml"
 SINGLE_MODEL_PATH = EXERCISES_DIR / "shared" / "models" / "pupper_v3_on_stand.xml"
 PORTFOLIO_DIR = LAB_DIR / "portfolio"
 
-# 主交付 GIF 直接借用 lab4 trot-ground 的浮动基 MJCF（带棋盘地板 / skybox / spotlight /
+# 主观察 GIF 直接借用 lab4 trot-ground 的浮动基 MJCF（带棋盘地板 / skybox / spotlight /
 # tracking_cam / STL 网格）和 lab4 的 IK / PD，纯把 pattern 换成 trot / pace / bound 三个。
 # 视觉等同于 ./viewer.sh lab_4_viewer.py trot-ground，pace / bound 在地面上几步翻车也是
 # zoo 的预期教学点。Lab 5 自己的 leg_phase / foot_trajectory / gait_step 仍然驱动 tests.py
@@ -140,7 +141,7 @@ def make_context(gait_name: str) -> GaitContext:
 
 
 def leg_phase(t: float, leg: str, *, offsets: dict[str, float], duty: float, T_cycle: float) -> tuple[bool, float]:
-    """TODO 1：把全局时间映射成某条腿的 stance/swing 局部进度。"""
+    """把全局时间映射成某条腿的 stance/swing 局部进度。"""
 
     if leg not in offsets:
         raise ValueError(f"offsets 缺少 {leg!r}")
@@ -149,11 +150,15 @@ def leg_phase(t: float, leg: str, *, offsets: dict[str, float], duty: float, T_c
     if T_cycle <= 0.0:
         raise ValueError("T_cycle 必须为正数")
 
+    # t_global 是整只机器人的统一时钟；offsets[leg] 决定这条腿相对
+    # 统一时钟提前或滞后多少周期。trot/pace/bound 的差异主要就在这里。
     t_global = (t / T_cycle) % 1.0
     t_local = (t_global + float(offsets[leg])) % 1.0
     if t > 0.0 and np.isclose(t_local, 0.0, atol=1e-12):
         t_local = 1.0
 
+    # duty 是支撑相占整个周期的比例。支撑相返回 s∈[0,1] 表示脚在地面
+    # 上向后扫的进度；摆动相返回 s∈[0,1] 表示脚离地前摆的进度。
     if t_local < duty or np.isclose(t_local, duty, atol=1e-12):
         return True, min(t_local / duty, 1.0)
     return False, (t_local - duty) / (1.0 - duty)
@@ -167,7 +172,7 @@ def foot_trajectory(
     step_height: float,
     stand_height: float,
 ) -> np.ndarray:
-    """TODO 2：返回 hip-local foot 目标 `(x, y, z)`。
+    """返回 hip-local foot 目标 `(x, y, z)`。
 
     swing 段必须用 `sin(pi*s)`。普通抛物线端点垂直速度不为 0，会复现
     教程 §5.8 的"滑步"症状。
@@ -179,20 +184,25 @@ def foot_trajectory(
         raise ValueError("stand_height 必须为正数")
 
     if in_stance:
+        # 支撑相：脚相对身体向后扫，模拟脚踩住地面、身体向前经过它。
         x = step_length * (0.5 - s)
         z = -stand_height
     else:
+        # 摆动相：脚从后方抬起并向前摆回。sin(pi*s) 让起点/终点高度
+        # 都回到 -stand_height，中间最高，视觉上不会擦地。
         x = step_length * (s - 0.5)
         z = -stand_height + step_height * np.sin(np.pi * s)
     return np.array((x, 0.0, z), dtype=float)
 
 
 def gait_step(t: float, ctx: GaitContext) -> np.ndarray:
-    """TODO 3：四条腿 phase → foot trajectory → 4-leg IK，返回 12 维目标 q。"""
+    """四条腿 phase → foot trajectory → 4-leg IK，返回 12 维目标 q。"""
 
     gait = ctx.gait
     target_q = np.zeros(12, dtype=float)
     for k, leg in enumerate(LEG_ORDER):
+        # 每条腿先从统一时钟取局部相位，再把相位变成 hip-local 足端目标。
+        # 三种 gait 共用这一段，只是 offsets/duty 不同。
         in_stance, s = leg_phase(
             t,
             leg,
@@ -208,6 +218,8 @@ def gait_step(t: float, ctx: GaitContext) -> np.ndarray:
             stand_height=float(gait["stand_height"]),
         )
         foot_xyz = HIP_OFFSETS[leg] + hip_local
+        # ik_pupper_leg 需要的是机器人坐标系下的足端位置，因此 hip-local
+        # 目标要加上这条腿的髋部安装偏移。
         q_leg = ik_pupper_leg(foot_xyz, leg=leg, q_seed=ctx.q_seed[leg])
         ctx.q_seed[leg] = q_leg
         target_q[3 * k : 3 * k + 3] = q_leg
@@ -501,7 +513,7 @@ def _simulate_lab4_gait_panel(
 
 
 def render_panel_gif_frames(*, seconds: float = GIF_SECONDS) -> list[np.ndarray]:
-    """主交付 GIF 直接复用 lab4 ``trot-ground`` 的 viewer 设定：
+    """主观察 GIF 直接复用 lab4 ``trot-ground`` 的 viewer 设定：
 
     - MJCF: ``lab4/models/pupper_v3_floating.xml``（浮基 + 棋盘地板 + skybox + spotlight +
       ``tracking_cam`` + STL 网格）。

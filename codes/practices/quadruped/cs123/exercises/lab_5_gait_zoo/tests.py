@@ -1,4 +1,4 @@
-"""填完 starter 三处空白后运行的 Lab 5 数值检查。"""
+"""Lab 5 数值检查：验证相位、足端轨迹和三种步态差异。"""
 
 from __future__ import annotations
 
