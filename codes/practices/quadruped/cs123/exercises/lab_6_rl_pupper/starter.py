@@ -29,16 +29,17 @@ TB_DIR = LAB_DIR / "tb"
 
 sys.path.insert(0, str(LAB_DIR))
 from envs.pupper_env import (  # noqa: E402
+    DEFAULT_POSE,
     DEFAULT_XML,
     FOOT_BODIES,
+    FrameStackedPupperEnv,
     JOINT_NAMES,
     KD,
     KP,
     MAX_STEPS,
+    N_STACK,
     REWARD_WEIGHTS,
-    TARGET_HEIGHT,
     PupperEnv,
-    _get_stance_q,
 )
 
 GIF_FPS = 12
@@ -68,17 +69,27 @@ CMD_LABELS = {
 
 def train_ppo(
     seed: int = 0,
-    total_timesteps: int = 2_000_000,
-    n_envs: int = 8,
+    total_timesteps: int = 150_000_000,
+    n_envs: int = 16,
+    warm_start: Path | None = None,
 ) -> Path:
-    """用 SB3 PPO 训练 Pupper 策略，返回 checkpoint 路径。"""
+    """SB3 PPO 训练入口，超参与 brax-PPO 配方等价换算：
+    - lr=3e-4, ent_coef=0.01, gamma=0.97, gae_lambda=0.95, clip_range=0.2（直接对应）
+    - n_epochs=4（brax `num_updates_per_batch`）
+    - batch_size=256（brax minibatch）
+    - n_steps=2048：单 rollout 收集 n_envs × n_steps = 32k 样本，与 brax
+      `unroll_length × num_envs / num_minibatches` 数量级匹配
+    """
     from stable_baselines3 import PPO
     from stable_baselines3.common.vec_env import SubprocVecEnv
-    from stable_baselines3.common.callbacks import CheckpointCallback
+    from stable_baselines3.common.monitor import Monitor
+    from stable_baselines3.common.callbacks import CheckpointCallback, CallbackList
+    from callbacks import RewardComponentCallback
 
     def make_env(rank: int):
         def _thunk():
-            env = PupperEnv()
+            env = FrameStackedPupperEnv(n_stack=N_STACK)
+            env = Monitor(env)
             env.reset(seed=seed + rank)
             return env
         return _thunk
@@ -87,27 +98,37 @@ def train_ppo(
     PORTFOLIO_DIR.mkdir(parents=True, exist_ok=True)
 
     checkpoint_cb = CheckpointCallback(
-        save_freq=max(200_000 // n_envs, 1),
+        save_freq=max(5_000_000 // n_envs, 1),
         save_path=str(PORTFOLIO_DIR),
         name_prefix=CHECKPOINT_NAME,
     )
+    reward_cb = RewardComponentCallback()
+    callbacks_list = [checkpoint_cb, reward_cb]
 
-    model = PPO(
-        "MlpPolicy",
-        vec_env,
-        n_steps=2048,
-        batch_size=512,
-        n_epochs=10,
-        learning_rate=3e-4,
-        gamma=0.99,
-        gae_lambda=0.95,
-        clip_range=0.2,
-        ent_coef=0.005,
-        tensorboard_log=str(TB_DIR),
-        verbose=1,
-        seed=seed,
+    if warm_start is not None and Path(warm_start).exists():
+        print(f"warm-starting from {warm_start}")
+        model = PPO.load(str(warm_start), env=vec_env)
+        model.tensorboard_log = str(TB_DIR)
+    else:
+        model = PPO(
+            "MlpPolicy",
+            vec_env,
+            n_steps=2048,
+            batch_size=256,
+            n_epochs=4,
+            learning_rate=3e-4,
+            gamma=0.97,
+            gae_lambda=0.95,
+            clip_range=0.2,
+            ent_coef=0.01,
+            tensorboard_log=str(TB_DIR),
+            verbose=1,
+            seed=seed,
+        )
+    model.learn(
+        total_timesteps=total_timesteps,
+        callback=CallbackList(callbacks_list),
     )
-    model.learn(total_timesteps=total_timesteps, callback=checkpoint_cb)
 
     final_path = PORTFOLIO_DIR / f"{CHECKPOINT_NAME}.zip"
     model.save(str(final_path))
@@ -160,7 +181,7 @@ def render_command_demo(checkpoint_path: str | Path | None = None, caption_prefi
         checkpoint_path = PORTFOLIO_DIR / f"{CHECKPOINT_NAME}.zip"
     checkpoint_path = Path(checkpoint_path)
 
-    env = PupperEnv()
+    env = FrameStackedPupperEnv(n_stack=N_STACK)
     model = PPO.load(str(checkpoint_path), env=env)
 
     total_seconds = sum(d for _, d in CMD_SCRIPT)
@@ -215,7 +236,7 @@ def render_velocity_tracking(
     if checkpoint_path is None:
         checkpoint_path = PORTFOLIO_DIR / f"{CHECKPOINT_NAME}.zip"
 
-    env = PupperEnv()
+    env = FrameStackedPupperEnv(n_stack=N_STACK)
     model = PPO.load(str(checkpoint_path), env=env)
     results = {}
 

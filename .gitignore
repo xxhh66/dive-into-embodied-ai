@@ -9,3 +9,6 @@ build/
 npm-debug.log*
 __pycache__
 .vscode
+
+# Lab 6 brax/MJX scratch scripts (eval / render / plotting helpers)
+codes/practices/quadruped/cs123/exercises/lab_6_rl_pupper/scripts/

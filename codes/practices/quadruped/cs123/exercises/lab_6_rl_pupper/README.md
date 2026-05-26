@@ -1,6 +1,6 @@
 # Lab 6：你的第一只 RL Pupper (Your First RL Pupper)
 
-教程 [§6.7](https://datawhalechina.github.io/dive-into-embodied-ai/docs/practices/quadruped/cs123/rl-gait#67-速度奖励实验) / [§6.8](https://datawhalechina.github.io/dive-into-embodied-ai/docs/practices/quadruped/cs123/rl-gait#68-能量惩罚实验) 各跑了一次"暴走"和"优雅"奖励对比，但**没把训练真正跑完 2M 步、没保存 checkpoint、没录变速命令 demo**。这就是 Lab 6 的增量：在 CPU 上用 `stable-baselines3` PPO 端到端训出一个能跟随变速命令的策略，拿到你自己的 `pupper_ppo.zip`。
+教程 [§6.7](https://datawhalechina.github.io/dive-into-embodied-ai/docs/practices/quadruped/cs123/rl-gait#67-速度奖励实验) / [§6.8](https://datawhalechina.github.io/dive-into-embodied-ai/docs/practices/quadruped/cs123/rl-gait#68-能量惩罚实验) 各跑了一次"暴走"和"优雅"奖励对比，但**没把训练真正跑完、没保存 checkpoint、没录变速命令 demo**。Lab 6 的增量：在 CPU 上用 `stable-baselines3` PPO 端到端训出一个能跟随变速命令的策略，拿到自己的 `pupper_ppo.zip`。
 
 训完之后你手里第一次真正持有"自己训出来的策略文件"——Lab 7 的 LLM agent 会把它当 `walk` 工具调用。
 
@@ -19,7 +19,7 @@
 
 - `portfolio/pupper_ppo.zip`：SB3 checkpoint，约 1–3 MB
 - `portfolio/rl_pupper_commands.gif`：命令序列 demo（仅你训出来的策略），1280×480，12 fps，≤ 2.0 MB
-- `portfolio/comparison.gif`：side-by-side 对比 GIF——左：你训的 PPO，右：上游 `test_policy.json`
+- `portfolio/comparison.gif`：side-by-side 对比——左：你训的 PPO；右：上游 `test_policy.json`（GPU 训了数十亿步的 RTNeural 策略，作为"成功 baseline"对照）
 - `portfolio/reward_curve.png`：训练曲线三栏图
 - `portfolio/velocity_tracking.png`：3 档命令的速度跟踪曲线
 - `portfolio/notes.md`：50–100 字反思
@@ -30,16 +30,16 @@
 
 | TODO | task | what to write |
 |---|---|---|
-| TODO 1 | `_compute_reward()` | 6 项加权和：vel / alive / torque / action_rate / ori / height |
-| TODO 2 | `_get_obs()` | 49 维向量拼接，顺序和 `observation_space` 对齐 |
-| TODO 3 | `_sample_command()` | 命令分布 `vx / vy / ωz` 三个均匀分布范围 |
+| TODO 1 | `_compute_reward()` | 18 项加权和（tracking 3 + 稳定性 3 + 能耗 4 + 步态 4 + 终止/接触 4），penalty 项 term 返回正幅值、权重写负；最终 `reward = sum(scale × term) × dt` |
+| TODO 2 | `_get_obs()` | 36 维 / step × 15 帧 stack = 540 维：IMU(6) + cmd(3) + desired_z(3) + 关节角差(12) + last_act(12)，含 IMU latency 与观测噪声 |
+| TODO 3 | `_sample_command()` | `vx ∈ [-0.75, 0.75]`，`vy ∈ [-0.5, 0.5]`，`wz ∈ [-2.0, 2.0]`，1% 概率回零命令 |
 
 ## 分步任务
 
 1. **环境拼接（30 min）**：读懂 `PupperEnv.__init__` 里的 PD 残差设定，补 `_get_obs`。（对应教程 [§6.2](https://datawhalechina.github.io/dive-into-embodied-ai/docs/practices/quadruped/cs123/rl-gait#62-gymnasium-环境)）
-2. **奖励设计（30 min）**：补 `_compute_reward`，理解为什么 `r_torque` 系数是 2e-4。（对应教程 [§6.4](https://datawhalechina.github.io/dive-into-embodied-ai/docs/practices/quadruped/cs123/rl-gait#64-奖励设计)）
-3. **命令分布（10 min）**：补 `_sample_command`，选合理范围。（对应教程 [§6.2](https://datawhalechina.github.io/dive-into-embodied-ai/docs/practices/quadruped/cs123/rl-gait#62-gymnasium-环境)）
-4. **训练（30–60 min）**：`uv run python lab_6_rl_pupper/train_ppo.py`，看 tensorboard。（对应教程 [§6.6](https://datawhalechina.github.io/dive-into-embodied-ai/docs/practices/quadruped/cs123/rl-gait#66-ppo-训练脚本)）
+2. **奖励设计（30 min）**：补 `_compute_reward`，理解为什么 `r_torque` 权重是 `-2e-4`、`r_termination` 是 `-100`。（对应教程 [§6.4](https://datawhalechina.github.io/dive-into-embodied-ai/docs/practices/quadruped/cs123/rl-gait#64-奖励设计)）
+3. **命令分布（10 min）**：补 `_sample_command`，注意要让 `wz` 范围足够宽，否则学不出转向。（对应教程 [§6.2](https://datawhalechina.github.io/dive-into-embodied-ai/docs/practices/quadruped/cs123/rl-gait#62-gymnasium-环境)）
+4. **训练（数小时 CPU）**：`uv run python lab_6_rl_pupper/train_ppo.py`，看 tensorboard。150M 步在 16-core CPU 上约 8 小时是个起点；要看到学习信号，2-5M 步就够。如果训完 150M `ep_len_mean` 仍在涨，再续 50-150M。（对应教程 [§6.6](https://datawhalechina.github.io/dive-into-embodied-ai/docs/practices/quadruped/cs123/rl-gait#66-ppo-训练脚本)）
 5. **评估录屏（20 min）**：`uv run python lab_6_rl_pupper/eval_commands.py`。（对应教程 [§6.9](https://datawhalechina.github.io/dive-into-embodied-ai/docs/practices/quadruped/cs123/rl-gait#69-评估与录屏)）
 6. **画图（10 min）**：reward_curve + velocity_tracking 自动生成。
 
@@ -49,18 +49,19 @@
 
 ## Rubric
 
-- `observation_space.shape == (49,)`，`action_space.shape == (12,)`
-- `reset()` 后 obs 全部 finite；gravity z 分量 ≤ -0.9
-- `step(zeros)` 时 `r_alive > 0`、`r_vel ∈ (0, 1]`、`r_torque ≤ 0`、`r_action_rate ≤ 0`
-- `REWARD_WEIGHTS` 6 个 key 齐全且为正数；`_sample_command()` 100 次采样落在声明范围内
+- `observation_space.shape == (540,)`，`action_space.shape == (12,)`
+- `reset()` 后 obs 全部 finite
+- `step(zeros)` 时所有 18 项 `r_*` 都在 info 里；tracking 项 ≥ 0，penalty 项 ≤ 0
+- `REWARD_WEIGHTS` 18 个 key 齐全；`_sample_command()` 200 次采样落在声明范围内
 - GIF 视觉判据：命令切换时身体方向 / 速度肉眼能跟上
 
 ## 常见坑
 
-- 不要把 `r_torque` 系数从 2e-4 调到 1e-2——PPO 探索期立刻趴下。
+- 权重的**符号约定**容易混淆：本 lab 的 penalty term 函数返回正幅值（如 `r_torques = Σ τ²`），权重需要写负数才能起惩罚作用；tracking term 用 `exp(-err²/σ²)` 返回 [0, 1]，权重写正。把符号弄反等于"奖励翻车"。
 - 不要忘了 `last_action` 进 obs，少了它策略高频抖动。
-- 命令分布太大（如 vx ∈ [-2, 2]）训不出来。
+- 命令分布太窄学不出转向（比如 `wz ∈ [-0.6, 0.6]` 训出来的策略在 ±2.0 命令下完全跟不上）。
 - `SubprocVecEnv` 在 macOS 起进程要 `if __name__ == "__main__":` 包好。
+- 训练前几百万步 `ep_rew_mean` 看起来很差是正常的；真正的指标是 `eval/avg_episode_length` 何时饱和到 1000（不再跌倒）。
 
 ## 教程衔接
 
@@ -70,17 +71,15 @@
 
 ## 不做什么
 
-- 不做 [§6.5](https://datawhalechina.github.io/dive-into-embodied-ai/docs/practices/quadruped/cs123/rl-gait#65-域随机化) 域随机化（Stretch 留给学生自己加）
-- 不做完整稳定性 / 接触 / 地形组奖励
+- 不做完整地形组奖励（foot clearance 等）
 - 不做 MJX / JAX / Brax
 - 不做 sim2real / 真机 / 真相机
 - 不开 mujoco viewer 录 GIF（统一 offscreen）
-- 不做 `vy` / `ωz` 的奖励项（命令值进 obs 但不做惩罚）
 - 不重训 multiple seeds 做曲线带
 
 ## Run
 
-从 `exercises/` 运行。**首次运行前先拉取上游 RTNeural policy**（约 38 MB，已 `.gitignore`，仅需一次）：
+从 `exercises/` 运行。**首次运行前先拉取上游 RTNeural policy**（约 38 MB，已 `.gitignore`，仅需一次；用来生成 `comparison.gif` 那个"成功 baseline"对照）：
 
 ```bash
 bash shared/rl/fetch_policies.sh                   # 下载 test_policy.json 到 shared/rl/policies/
@@ -90,7 +89,8 @@ bash shared/rl/fetch_policies.sh                   # 下载 test_policy.json 到
 
 ```bash
 uv run python lab_6_rl_pupper/tests.py             # 4 条断言
-uv run python lab_6_rl_pupper/train_ppo.py         # 30–60 min CPU 训练
-uv run python lab_6_rl_pupper/eval_commands.py     # 加载 ckpt 录 GIF + 画图
+uv run python lab_6_rl_pupper/train_ppo.py         # CPU 训练（默认 150M 步，~8 小时；
+                                                   #  想先看是否学得动可以 --total-steps 5_000_000）
+uv run python lab_6_rl_pupper/eval_commands.py     # 加载 ckpt 录 GIF + 画图（含上游对比）
 uv run python lab_6_rl_pupper/make_artifacts.py    # 一键串起训练、GIF、对比图和曲线
 ```
