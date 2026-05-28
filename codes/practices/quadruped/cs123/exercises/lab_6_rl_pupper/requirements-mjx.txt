@@ -1,0 +1,41 @@
+# Lab 6 可选进阶：brax-PPO + MJX 的 GPU 训练依赖。
+#
+# 主线 Lab 用纯 CPU 的 SB3（train_ppo.py），不需要本文件，也不需要 GPU。
+# 只有想在 GPU 上跑 Stanford 量级（8192 envs / 200M 步）才用得上。
+#
+# 关键：装在一个**独立 venv**里，不要和主线 .venv 混装。主线的 torch 会把
+# CUDA 13 运行库（nvidia-*-cu13）拉进来，与 jax 的 CUDA 12 运行库冲突——在只
+# 支持到 CUDA 12 的驱动上，cuDNN 会初始化失败或 jax 静默回退到 CPU。隔离 venv
+# 里只留一套 CUDA 库，问题消失。
+#
+# 安装（在 exercises/ 下，固定用 Python 3.12——brax 要求 >=3.11）：
+#
+#   uv venv .venv-mjx --python 3.12
+#
+#   # A. GPU，驱动支持 CUDA 12（用 nvidia-smi 右上角的 "CUDA Version" 判断）：
+#   uv pip install --python .venv-mjx/bin/python -r lab_6_rl_pupper/requirements-mjx.txt \
+#     "jax[cuda12]==0.10.1" "jax-cuda12-pjrt==0.10.1" "jax-cuda12-plugin==0.10.1"
+#
+#   # B. GPU，驱动支持 CUDA 13（需要驱动 >=580）：把 A 的三个包换成 cuda13 同版本号：
+#   uv pip install --python .venv-mjx/bin/python -r lab_6_rl_pupper/requirements-mjx.txt \
+#     "jax[cuda13]==0.10.1" "jax-cuda13-pjrt==0.10.1" "jax-cuda13-plugin==0.10.1"
+#
+#   # C. 纯 CPU / macOS：只装本文件，不加任何 cuda 插件：
+#   uv pip install --python .venv-mjx/bin/python -r lab_6_rl_pupper/requirements-mjx.txt
+#
+# 自检：.venv-mjx/bin/python -c "import jax; print(jax.default_backend())"
+#   GPU 应打印 gpu；打印 cpu 说明驱动/插件 CUDA 大版本不匹配，回退了。
+# 启动时 "Failed to import warp" 是无害告警：mujoco-mjx 探测可选的 warp 后端，
+# 找不到就退回 JAX 后端，不影响训练，不用装 warp。
+
+# --- 平台无关核心（CPU 与 GPU 都装；四个 jax 组件版本必须一致，勿单独升级）---
+jax==0.10.1
+jaxlib==0.10.1
+mujoco==3.8.1
+mujoco-mjx==3.8.1
+tensorboardX==2.6.5
+
+# brax 的 PyPI 0.14.2 仍在用 JAX 0.10 已删除的 jax.device_put_replicated，会直接
+# import 失败；修了该问题的版本只在 git main 上，故 pin 到具体 commit（同时锁住
+# brax 自带的 flax / optax / orbax，避免降 jax 去迁就老 brax 引发的连锁冲突）。
+brax @ git+https://github.com/google/brax.git@7b79b2a95ba3a0506a4e375b1c9cccb792f58920

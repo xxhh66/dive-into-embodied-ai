@@ -5,8 +5,9 @@
         --num-envs 8192 --num-timesteps 200000000 \\
         --output portfolio/pupper_mjx --tb-dir tb_mjx
 
-依赖：本仓库 `envs/pupper_env_mjx.py`，加 brax (main, post-0.14.2) +
-jax[cuda12] 0.10.1 + mujoco-mjx 3.8.1 + tensorboardX 2.6.5。
+依赖：本仓库 `envs/pupper_env_mjx.py`。jax / brax / mujoco-mjx 的锁定版本与
+CUDA 12 / 13 / 纯 CPU 三套装法见 `lab_6_rl_pupper/requirements-mjx.txt`，装在
+独立 venv（勿与主线 `.venv` 混）。
 
 验证结果：200M 步训练 ep_rew 在约 149M 步处达到峰值 51.15 ± 7.4；存活率
 100%，yaw tracking 持续提升。

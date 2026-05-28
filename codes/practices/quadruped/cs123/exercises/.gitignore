@@ -9,6 +9,7 @@ shared/rl/policies/*.json
 
 # uv / Python
 .venv/
+.venv-mjx/
 __pycache__/
 *.pyc
 .DS_Store
